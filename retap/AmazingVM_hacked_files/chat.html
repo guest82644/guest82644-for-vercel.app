@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)https://rumbletalk.com/client/chat.php?OLl_uaR* -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+                    
+        <title>AmazingVM informer</title>
+        <style>
+            body {
+                margin: 0;
+                overflow: hidden;
+                font-size: 0;/* fix Safari mobile padding bug */
+            }
+        </style>
+        <link rel="shortcut icon" href="https://d1pfint8izqszg.cloudfront.net/new/favicon.ico">
+        <link rel="manifest" href="https://rumbletalk-images-upload.s3.amazonaws.com/OLl_uaR*/configuration/manifest.json">
+        <link rel="apple-touch-icon" sizes="192x192" href="https://d1pfint8izqszg.cloudfront.net/new/mobile/icon.png">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+        <script>
+            window.addEventListener(
+                'load',
+                function () {
+                    var hash = 'OLl_uaR*';
+
+                    /* in case of mobile device, notify the chat about orientation change */
+                    window.addEventListener(
+                        'orientationchange',
+                        function () {
+                            try {
+                                var data = {
+                                    type: 'orientationchange',
+                                    width: parseInt(RumbleTalkChat[hash].iframe.style.width),
+                                    height: parseInt(RumbleTalkChat[hash].iframe.style.height)
+                                };
+
+                                window.RumbleTalkChat[hash].iframe.contentWindow.postMessage(
+                                    data,
+                                    'https://' + window.RumbleTalkChat[hash].server
+                                );
+                            } catch (ignore) {
+                            }
+                        }
+                    );
+
+                    /**
+                     * checks if the given origin is of a chat service
+                     * @param {string} origin - the URL of the origin
+                     * @returns {boolean}
+                     */
+                    function validateOrigin(origin) {
+                        return (/^https:\/\/.+\.rumbletalk\.net(:4433)?$/).test(origin);
+                    }
+
+                    var openerInfo;
+                    var popupParent;
+                    window.addEventListener(
+                        'message',
+                        function (event) {
+                            // for handling popup window sharing of rumbletalk session
+                            if (
+                                typeof event.data === 'object' && event.data.type &&
+                                (event.data.type === 'pm.8' || event.data.type === 'pm.10')
+                            ) {
+                                // this part sends the session
+                                if (!validateOrigin(event.origin)) {
+                                    return;
+                                }
+
+                                if (!popupParent) {
+                                    popupParent = {
+                                        source: event.source,
+                                        origin: event.origin
+                                    };
+                                }
+
+                                window.RumbleTalkChat[hash].iframe.contentWindow.postMessage(
+                                    event.data, 
+                                    'https://' + window.RumbleTalkChat[hash].server
+                                );
+                                return;
+                            } else if (typeof event.data === 'string' && event.data === 'pm.9') {
+                                // this part sends back successful storing of the session
+                                if (!popupParent) {
+                                    return;
+                                }
+
+                                popupParent.source.postMessage(event.data, popupParent.origin);
+                                return;
+                            }
+
+                            /* came from the chat */
+                            if (validateOrigin(event.origin)) {
+                                if (openerInfo) {
+                                    openerInfo.source.postMessage(
+                                        event.data,
+                                        openerInfo.origin
+                                    );
+                                }
+
+                                /* came from the opening window */
+                            } else {
+                                openerInfo = {
+                                    source: event.source,
+                                    origin: event.origin
+                                };
+                                window.RumbleTalkChat[hash].iframe.contentWindow.postMessage(
+                                    event.data,
+                                    'https://' + window.RumbleTalkChat[hash].server
+                                );
+                            }
+                        }
+                    );
+                }
+            );
+        </script>
+                </head>
+        <body><div id="rumbletalk-chat-fullscreen"><div id="rt-e94f51b2b5d2af9032b4fcaa313b92dd" class="rumbletalk-embed" style="overflow: hidden;"><iframe src="./saved_resource.html" allow="microphone; camera; fullscreen; autoplay; display-capture" style="width: 100%; height: 100%; overflow: hidden; border: 0px; background-color: transparent;"></iframe></div><script src="./saved_resource"></script></div>
+        
+        </body></html>
