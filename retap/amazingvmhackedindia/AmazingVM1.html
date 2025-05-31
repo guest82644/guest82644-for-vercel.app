@@ -1,0 +1,625 @@
+
+<!-- saved from url=(0032)https://amazingvm1.netlify.app/1 -->
+<html class="hydrated"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style data-styles="">ion-icon{visibility:hidden}.hydrated{visibility:inherit}</style>
+        <title>AmazingVM</title>
+        <script src="./AmazingVM1_files/Security.js.download"></script>
+        <link rel="stylesheet" type="text/css" href="./AmazingVM1_files/styles.css">
+    <script type="module" src="./AmazingVM1_files/ionicons.esm.js.download"></script><script nomodule="" src="./AmazingVM1_files/ionicons.js.download"></script></head>
+    
+
+    <body>
+        <iframe class="sidebar" src="./AmazingVM1_files/sidebar.html"></iframe>
+        <iframe src="https://rustdesk.com/web/" class="screen"></iframe>
+        <iframe src="https://rumbletalk.com/client/chat.php?uXPnrydd" class="chatroom"></iframe>
+
+
+
+        <button id="VM1Button" onclick="showVM1()">VM1</button>
+    <button id="VM2Button" onclick="showVM2()">VM2</button>
+    <button id="VM3Button" onclick="showVM3()">VM3</button>
+    <button id="VM4Button" onclick="showVM4()">VM4</button>
+    <button id="VM5Button" onclick="showVM5()">VM5</button>
+    <button id="VM6Button" onclick="showVM6()">VM6</button>
+    <button id="VM7Button" onclick="showVM7()">VM7</button>
+    <button id="VM8Button" onclick="showVM8()">VM8</button>
+    <button id="RulesButton" onclick="showRules()">Rules</button>
+    <button id="TranslatorButton" onclick="showTranslator()">Translator</button>
+    <button id="VMinformerButton" onclick="showVMinformer()">VM informer</button>
+    <button id="StickersButton" onclick="showStickers()">Stickers</button>
+        
+
+        
+
+        <div id="myVM1" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeVM1()">×</span>
+                
+                <img src="./AmazingVM1_files/anydesk-logo-c0861c.png" height="50px" width="250px"><br>
+                    <br><vmpl class="VMPL1">Remote Adress : </vmpl>
+                    <input type="text" id="Anydesk_ip1" class="VMPTEXT" value="1893379136" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;Anydesk_ip1&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button>
+                    <vmpl class="VMPL1">Password : </vmpl>
+                    <input type="text" id="Anydesk_password1" class="VMPTEXT" value="AmazingVM1" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;Anydesk_password1&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button><br>
+               
+               
+                    <br> <img src="./AmazingVM1_files/rustdesk-logo.png" height="60px" width="240px">
+                    <br><vmpl class="VMPL1">Remote Adress : </vmpl>
+                    <input type="text" id="rustdesk_ip1" class="VMPTEXT" value="164265772" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;rustdesk_ip1&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button>
+                    <vmpl class="VMPL1">Password : </vmpl>
+                    <input type="text" id="rustdesk_password1" class="VMPTEXT" value="AmazingVM1" readonly="">
+                    <button class="VMPBTN"><ion-icon name="copy-outline" onclick="copyText(&#39;rustdesk_password1&#39;)" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button><br>
+                    <br><vmpl class="VMPL1">OS: Windows 11 Pro</vmpl>
+                    <br><vmpl class="VMPL1">Owner: Zenith</vmpl>
+            <br><br><p align="right"><button class="Closs" onclick="closeVM1()">Close</button></p>
+
+            </div>
+        </div>
+    
+        
+        <div id="myVM2" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeVM2()">×</span>
+                <img src="./AmazingVM1_files/anydesk-logo-c0861c.png" height="50px" width="250px"><br>
+                    <br><vmpl class="VMPL1">Remote Adress : </vmpl>
+                    <input type="text" id="Anydesk_ip2" class="VMPTEXT" value="1128616165" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;Anydesk_ip2&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button>
+                    <vmpl class="VMPL1">Password : </vmpl>
+                    <input type="text" id="Anydesk_password2" class="VMPTEXT" value="AmazingVM2" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;Anydesk_password2&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button><br>
+               
+               
+                    <br> <img src="./AmazingVM1_files/rustdesk-logo.png" height="60px" width="240px">
+                    <br><vmpl class="VMPL1">Remote Adress : </vmpl>
+                    <input type="text" id="rustdesk_ip2" class="VMPTEXT" value="158872430" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;rustdesk_ip2&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button>
+                    <vmpl class="VMPL1">Password : </vmpl>
+                    <input type="text" id="rustdesk_password2" class="VMPTEXT" value="AmazingVM2" readonly="">
+                    <button class="VMPBTN"><ion-icon name="copy-outline" onclick="copyText(&#39;rustdesk_password2&#39;)" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button><br>
+                    <br><vmpl class="VMPL1">OS: Windows 8.1 Pro</vmpl>
+                    <br><vmpl class="VMPL1">Owner: sylveontheoctoling</vmpl>
+            <br><br><p align="right"><button class="Closs" onclick="closeVM2()">Close</button></p>
+
+            </div>
+        </div>
+
+        <div id="myVM3" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeVM3()">×</span>
+                <img src="./AmazingVM1_files/anydesk-logo-c0861c.png" height="50px" width="250px"><br>
+                    <br><vmpl class="VMPL1">Remote Adress : </vmpl>
+                    <input type="text" id="Anydesk_ip3" class="VMPTEXT" value="1097235760" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;Anydesk_ip3&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button>
+                    <vmpl class="VMPL1">Password : </vmpl>
+                    <input type="text" id="Anydesk_password3" class="VMPTEXT" value="AmazingVM3" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;Anydesk_password3&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button><br>
+               
+               
+                    <br> <img src="./AmazingVM1_files/rustdesk-logo.png" height="60px" width="240px">
+                    <br><vmpl class="VMPL1">Remote Adress : </vmpl>
+                    <input type="text" id="rustdesk_ip3" class="VMPTEXT" value="133073419" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;rustdesk_ip3&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button>
+                    <vmpl class="VMPL1">Password : </vmpl>
+                    <input type="text" id="rustdesk_password3" class="VMPTEXT" value="AmazingVM3" readonly="">
+                    <button class="VMPBTN"><ion-icon name="copy-outline" onclick="copyText(&#39;rustdesk_password3&#39;)" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button><br>
+                    <br><vmpl class="VMPL1">OS: Windows 11 Lite Pro</vmpl>
+                    <br><vmpl class="VMPL1">Owner: ASUS</vmpl>
+            <br><br><p align="right"><button class="Closs" onclick="closeVM3()">Close</button></p>
+
+            </div>
+        </div>
+        <div id="myVM4" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeVM4()">×</span>
+                <img src="./AmazingVM1_files/anydesk-logo-c0861c.png" height="50px" width="250px"><br>
+                    <br><vmpl class="VMPL1">Remote Adress : </vmpl>
+                    <input type="text" id="Anydesk_ip4" class="VMPTEXT" value="1043388877" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;Anydesk_ip4&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button>
+                    <vmpl class="VMPL1">Password : </vmpl>
+                    <input type="text" id="Anydesk_password4" class="VMPTEXT" value="AmazingVM4" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;Anydesk_password4&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button><br>
+               
+               
+                    <br> <img src="./AmazingVM1_files/rustdesk-logo.png" height="60px" width="240px">
+                    <br><vmpl class="VMPL1">Remote Adress : </vmpl>
+                    <input type="text" id="rustdesk_ip4" class="VMPTEXT" value="127 419 146" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;rustdesk_ip4&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button>
+                    <vmpl class="VMPL1">Password : </vmpl>
+                    <input type="text" id="rustdesk_password4" class="VMPTEXT" value="AmazingVM4" readonly="">
+                    <button class="VMPBTN"><ion-icon name="copy-outline" onclick="copyText(&#39;rustdesk_password4&#39;)" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button><br>
+                    <br><vmpl class="VMPL1">OS: Windows 8.1 Super Lite</vmpl>
+                    <br><vmpl class="VMPL1">Owner: ASUS</vmpl>
+            <br><br><p align="right"><button class="Closs" onclick="closeVM4()">Close</button></p>
+
+            </div>
+        </div>
+        
+        <div id="myVM5" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeVM5()">×</span>
+                <img src="./AmazingVM1_files/anydesk-logo-c0861c.png" height="50px" width="250px"><br>
+                    <br><vmpl class="VMPL1">Remote Adress : </vmpl>
+                    <input type="text" id="Anydesk_ip5" class="VMPTEXT" value="" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;Anydesk_ip5&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button>
+                    <vmpl class="VMPL1">Password : </vmpl>
+                    <input type="text" id="Anydesk_password5" class="VMPTEXT" value="" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;Anydesk_password5&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button><br>
+               
+               
+                    <br> <img src="./AmazingVM1_files/rustdesk-logo.png" height="60px" width="240px">
+                    <br><vmpl class="VMPL1">Remote Adress : </vmpl>
+                    <input type="text" id="rustdesk_ip5" class="VMPTEXT" value="" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;rustdesk_ip5&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button>
+                    <vmpl class="VMPL1">Password : </vmpl>
+                    <input type="text" id="rustdesk_password5" class="VMPTEXT" value="" readonly="">
+                    <button class="VMPBTN"><ion-icon name="copy-outline" onclick="copyText(&#39;rustdesk_password5&#39;)" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button><br>
+                    <br><vmpl class="VMPL1">OS: Linux mint</vmpl>
+                    <br><vmpl class="VMPL1">Owner: apo</vmpl>
+            <br><br><p align="right"><button class="Closs" onclick="closeVM5()">Close</button></p>
+
+            </div>
+        </div>
+        <div id="myVM6" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeVM6()">×</span>
+                
+                <img src="./AmazingVM1_files/anydesk-logo-c0861c.png" height="50px" width="250px"><br>
+                    <br><vmpl class="VMPL1">Remote Adress : </vmpl>
+                    <input type="text" id="Anydesk_ip6" class="VMPTEXT" value="156 322 215" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;Anydesk_ip6&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button>
+                    <vmpl class="VMPL1">Password : </vmpl>
+                    <input type="text" id="Anydesk_password6" class="VMPTEXT" value="AmazingVM6" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;Anydesk_password6&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button><br>
+               
+               
+                    <br> <img src="./AmazingVM1_files/rustdesk-logo.png" height="60px" width="240px">
+                    <br><vmpl class="VMPL1">Remote Adress : </vmpl>
+                    <input type="text" id="rustdesk_ip6" class="VMPTEXT" value="121 858 250" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;rustdesk_ip6&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button>
+                    <vmpl class="VMPL1">Password : </vmpl>
+                    <input type="text" id="rustdesk_password6" class="VMPTEXT" value="AmazingVM6" readonly="">
+                    <button class="VMPBTN"><ion-icon name="copy-outline" onclick="copyText(&#39;rustdesk_password6&#39;)" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button><br>
+                    <br><vmpl class="VMPL1">OS: Windows 10</vmpl>
+                    <br><vmpl class="VMPL1">Owner: ASUS</vmpl>
+            <br><br><p align="right"><button class="Closs" onclick="closeVM6()">Close</button></p>
+
+            </div>
+        </div>
+        <div id="myVM7" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeVM7()">×</span>
+                
+                <img src="./AmazingVM1_files/anydesk-logo-c0861c.png" height="50px" width="250px"><br>
+                    <br><vmpl class="VMPL1">Remote Adress : </vmpl>
+                    <input type="text" id="Anydesk_ip7" class="VMPTEXT" value="1993357478" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;Anydesk_ip7&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button>
+                    <vmpl class="VMPL1">Password : </vmpl>
+                    <input type="text" id="Anydesk_password7" class="VMPTEXT" value="TheNiceVM1" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;Anydesk_password7&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button><br>
+               
+               
+                    <br> <img src="./AmazingVM1_files/rustdesk-logo.png" height="60px" width="240px">
+                    <br><vmpl class="VMPL1">Remote Adress : </vmpl>
+                    <input type="text" id="rustdesk_ip7" class="VMPTEXT" value="120 625 975" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;rustdesk_ip7&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button>
+                    <vmpl class="VMPL1">Password : </vmpl>
+                    <input type="text" id="rustdesk_password7" class="VMPTEXT" value="TheNiceVM1" readonly="">
+                    <button class="VMPBTN"><ion-icon name="copy-outline" onclick="copyText(&#39;rustdesk_password7&#39;)" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button><br>
+                    <br><vmpl class="VMPL1">OS: Windows 7 Pro</vmpl>
+                    <br><vmpl class="VMPL1">Owner: Olek</vmpl>
+            <br><br><p align="right"><button class="Closs" onclick="closeVM7()">Close</button></p>
+
+            </div>
+        </div>
+        <div id="myVM8" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeVM8()">×</span>
+                
+                <img src="./AmazingVM1_files/anydesk-logo-c0861c.png" height="50px" width="250px"><br>
+                    <br><vmpl class="VMPL1">Remote Adress : </vmpl>
+                    <input type="text" id="Anydesk_ip8" class="VMPTEXT" value="1790842531" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;Anydesk_ip8&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button>
+                    <vmpl class="VMPL1">Password : </vmpl>
+                    <input type="text" id="Anydesk_password8" class="VMPTEXT" value="AmazingVM8" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;Anydesk_password8&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button><br>
+               
+
+                    <br> <img src="./AmazingVM1_files/rustdesk-logo.png" height="60px" width="240px">
+                    <br><vmpl class="VMPL1">Remote Adress : </vmpl>
+                    <input type="text" id="rustdesk_ip7" class="VMPTEXT" value="131442727" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;rustdesk_ip7&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button>
+                    <vmpl class="VMPL1">Password : </vmpl>
+                    <input type="text" id="rustdesk_password7" class="VMPTEXT" value="AmazingVM8" readonly="">
+                    <button class="VMPBTN"><ion-icon name="copy-outline" onclick="copyText(&#39;rustdesk_password7&#39;)" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button><br>
+                    
+               
+                    <br><vmpl class="VMPL1">OS: Windows 10</vmpl>
+                    <br><vmpl class="VMPL1">Owner: hello</vmpl>
+            <br><br><p align="right"><button class="Closs" onclick="closeVM8()">Close</button></p>
+
+            </div>
+        </div>
+        <div id="myVM9" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeVM9()">×</span>
+                
+                <img src="./AmazingVM1_files/anydesk-logo-c0861c.png" height="50px" width="250px"><br>
+                    <br><vmpl class="VMPL1">Remote Adress : </vmpl>
+                    <input type="text" id="Anydesk_ip9" class="VMPTEXT" value="162 335 178 " readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;Anydesk_ip9&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button>
+                    <vmpl class="VMPL1">Password : </vmpl>
+                    <input type="text" id="Anydesk_password9" class="VMPTEXT" value="AmazingVM10" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;Anydesk_password9&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button><br>
+               
+               
+                    <br> <img src="./AmazingVM1_files/rustdesk-logo.png" height="60px" width="240px">
+                    <br><vmpl class="VMPL1">Remote Adress : </vmpl>
+                    <input type="text" id="rustdesk_ip9" class="VMPTEXT" value="1 292 193 417" readonly="">
+                    <button class="VMPBTN" onclick="copyText(&#39;rustdesk_ip9&#39;)"><ion-icon name="copy-outline" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button>
+                    <vmpl class="VMPL1">Password : </vmpl>
+                    <input type="text" id="rustdesk_password9" class="VMPTEXT" value="AmazingVM10" readonly="">
+                    <button class="VMPBTN"><ion-icon name="copy-outline" onclick="copyText(&#39;rustdesk_password9&#39;)" role="img" class="md hydrated"><template shadowrootmode="open"><div class="icon-inner"><svg xmlns="http://www.w3.org/2000/svg" class="ionicon s-ion-icon" viewBox="0 0 512 512"><rect x="128" y="128" width="336" height="336" rx="57" ry="57" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></rect><path d="M383.5 128l.5-24a56.16 56.16 0 00-56-56H112a64.19 64.19 0 00-64 64v216a56.16 56.16 0 0056 56h24" stroke-linecap="round" stroke-linejoin="round" class="ionicon-fill-none ionicon-stroke-width"></path></svg></div></template></ion-icon></button><br>
+                     <br><vmpl class="VMPL1">OS: Windows 10</vmpl>
+                    <br><vmpl class="VMPL1">Owner: lol</vmpl>
+            <br><br><p align="right"><button class="Closs" onclick="closeVM9()">Close</button></p>
+
+            </div>
+        </div>
+    
+        <div id="myRules" class="modal">
+            <div class="modal-content-rules">
+                <span class="close" onclick="closeRules()">×</span>
+                <h2>Rules</h2>
+                <h3>1. Don't Disconnect Others. Let people use the vm like you.</h3>
+                <h3>2. Don't Uninstall or Reinstall Anydesk or Rustdesk. Let people connect through it.</h3>
+                <h3>3. Do not hurt anyone &amp; Do not use Bad words. Let people to become your friend.</h3>
+                <h3>4. Don't make VM unstable when Owner is busy or away. Let people use the vm. </h3>
+                <h3>5. No Reseting or Reinstalling OS (Windows). So Remote controll apps Work undisturbed.</h3>
+                <h3>6. Don't set Password on Lock Screen.Because it breaks rule 4.</h3>
+                <h3>7. No NSFW, NSFW content harms mental health, relationships, and privacy. Avoid it for well-being.</h3>
+                <h3>8. Do not spam the Chat. Because it makes others angry.</h3>
+
+                <p align="Right"><button class="Closs" onclick="closeRules()">Close</button></p>
+            </div>
+        </div>
+        <div id="myTranslator" class="modal">
+            <div class="modal-content-translator">
+                <span class="close" onclick="closeTranslator()">×</span>
+                
+                <iframe src="./AmazingVM1_files/Translator.html" class="translatoriframe" height="300px" width="100%"></iframe>
+
+                    </div>
+        </div>
+        <div id="myVMinformer" class="modal">
+            <div class="modal-content-vminformer">
+                <span class="close" onclick="closeVMinformer()">×</span>
+                VM Info:
+                <iframe src="./AmazingVM1_files/chat.html" class="translatoriframe" height="300px" width="100%"></iframe>
+
+                    </div>
+        </div>
+   
+    <div id="myStickers" class="modal">
+        <div class="modal-content-Stickers">
+
+            <div class="StickerGap"><div class="Sticker"><p align="center">
+                <img src="./AmazingVM1_files/Glass lines.gif" onclick="copySticker(&#39;https://amazingvm1.netlify.app/Stickers/Glass lines.gif&#39;)" width="140px"></p></div><p></p></div>
+                   
+                <div class="StickerGap"><div class="Sticker"><p align="center">
+                    <img src="./AmazingVM1_files/PS.gif" onclick="copySticker(&#39;https://amazingvm1.netlify.app/Stickers/Glass lines.gif&#39;)" width="140px"></p></div><p></p></div>
+                
+                <div class="StickerGap"><div class="Sticker"><p align="center">
+                    <img src="./AmazingVM1_files/3.gif" onclick="copySticker(&#39;https://amazingvm1.netlify.app/Stickers/3.gif&#39;)" width="140px"></p></div><p></p></div>
+                            
+                <div class="StickerGap"><div class="Sticker"><p align="center">
+                    <img src="./AmazingVM1_files/love.jpg" onclick="copySticker(&#39;https://amazingvm1.netlify.app/Stickers/love.jpg&#39;)" width="140px"></p></div><p></p></div>
+                
+                <div class="StickerGap"><div class="Sticker"><p align="center">
+                    <img src="./AmazingVM1_files/lovely.jpg" onclick="copySticker(&#39;https://amazingvm1.netlify.app/Stickers/lovely.jpg&#39;)" width="140px"></p></div><p></p></div>
+                
+                <div class="StickerGap"><div class="Sticker"><p align="center">
+                    <img src="./AmazingVM1_files/cake1.webp" onclick="copySticker(&#39;https://amazingvm1.netlify.app/Stickers/cake1.webp&#39;)" width="140px"></p></div><p></p></div>
+                
+                <div class="StickerGap"><div class="Sticker"><p align="center">
+                    <img src="./AmazingVM1_files/cake2.webp" onclick="copySticker(&#39;https://amazingvm1.netlify.app/Stickers/cake2.webp&#39;)" width="140px"></p></div><p></p></div>
+                        
+
+
+
+            <button class="Closemestickers" onclick="closeStickers()">Close</button>
+                </div>
+    </div>
+    
+
+
+        <script src="./AmazingVM1_files/scripts.js.download"></script>
+    <script>
+        window.addEventListener('message', function(event) {
+            console.log("Received message:", event.data);
+            if (event.data === 'openVM1') {
+                document.getElementById('VM1Button').click();
+            }
+            if (event.data === 'openVM2') {
+                document.getElementById('VM2Button').click();
+            }
+            if (event.data === 'openVM3') {
+                document.getElementById('VM3Button').click();
+            }
+            if (event.data === 'openVM4') {
+                document.getElementById('VM4Button').click();
+            }
+            if (event.data === 'openVM5') {
+                document.getElementById('VM5Button').click();
+            }
+            if (event.data === 'openVM6') {
+                document.getElementById('VM6Button').click();
+            }
+            if (event.data === 'openVM7') {
+                document.getElementById('VM7Button').click();
+            }
+            if (event.data === 'openVM8') {
+                document.getElementById('VM8Button').click();
+            }
+            if (event.data === 'openVM9') {
+                document.getElementById('VM9Button').click();
+            }
+            
+            if (event.data === 'openRules') {
+                document.getElementById('RulesButton').click();
+            }
+            if (event.data === 'openTranslator') {
+                document.getElementById('TranslatorButton').click();
+            }
+            if (event.data === 'openVMinformer') {
+                document.getElementById('VMinformerButton').click();
+            }
+            if (event.data === 'openStickers') {
+                document.getElementById('StickersButton').click();
+            }
+        });
+    </script>
+    
+    
+        <script src="./AmazingVM1_files/scripts.js.download"></script>
+        <script>
+            function copyText(textboxId) {
+                // Get the text field
+                var copyText = document.getElementById(textboxId);
+    
+                // Select the text field
+                copyText.select();
+                copyText.setSelectionRange(0, 99999); // For mobile devices
+    
+                // Copy the text inside the text field
+                navigator.clipboard.writeText(copyText.value).then(function() {
+                    alert("Copied the text: " + copyText.value);
+                }, function(err) {
+                    console.error('Could not copy text: ', err);
+                });
+            }
+        </script>
+<script>
+    function copyText(textboxId) {
+        // Get the text field
+        var copyText = document.getElementById(textboxId);
+
+        // Select the text field
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // For mobile devices
+
+        // Copy the text inside the text field
+        navigator.clipboard.writeText(copyText.value).then(function() {
+            alert("Copied the text: " + copyText.value);
+        }, function(err) {
+            console.error('Could not copy text: ', err);
+        });
+    }
+</script>
+
+    
+
+<style>
+    body {
+            background-color: rgba(0, 0, 0, 0.826); /* Set background to black */
+            
+        }
+    .screen{
+        width: 65%;
+        height: 99%;
+        border-width: 0px;
+        border-radius: 15px;
+        padding-left: 5px;
+    }
+    #VM1Button, #VM2Button, #StickersButton, #RulesButton, #TranslatorButton, #VMinformerButton, #VM3Button,#VM4Button,#VM5Button,#VM6Button,#VM7Button,#VM8Button,#VM9Button {
+        display: none;
+    }
+    .chatroom{
+        height: 99%;
+        width: 34%;
+        border-width: 0px;
+        border-radius: 15px
+    
+    }
+    .sidebar{
+    background-color: antiquewhite;
+    position:sticky;
+    float: left;
+    top:0px;
+    height:100%;
+    width:19%;
+    border-width: 0px;
+    border-radius: 15px;
+    position: fixed;
+            top: 0;
+            left: -240px; /* Width of the sidebar */
+            height: 100%;
+            width: 250px; /* Width of the sidebar */
+            background-color: #f1f1f1;
+            transition: left 0.3s; /* Smooth transition */
+}
+.sidebar:hover {
+            left: 0; /* Show the sidebar on hover */
+        }
+.sidebar ul{
+    font-size: 25px;
+}
+    #testModalButton {
+            display: none;
+        }
+.VMPTEXT{
+font-size: 20px;
+width: 240px;
+}
+.VMPBTN{
+font-size: 15px;
+background-color: rgb(87, 158, 252);
+border-radius: 5px;
+border-width: 0px;
+height: 30px;
+}
+.VMPBTN:hover{
+    background-color: rgb(165, 204, 255);
+}
+.VMPL1{
+font-size: 20px;
+}
+
+.closs{
+    font-size:25px;
+    background-color: rgb(87, 158, 252);
+    border-radius: 5px;
+    color: rgb(242, 242, 243);
+    border-width: 0px;
+}
+.closs:hover{
+    background-color: rgb(165, 204, 255);
+}
+
+/* Modal background */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto; /* Center the modal */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 798px; /* Fixed width */
+    height: 330px; /* Fixed height */
+    position: fixed; /* Stay in place */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centering */
+    border-radius: 10px;
+}
+.modal-content-rules {
+    background-color: #fefefe;
+    margin: auto; /* Center the modal */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 811px; /* Fixed width */
+    height: 410px; /* Fixed height */
+    position: fixed; /* Stay in place */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centering */
+    border-radius: 10px;
+}
+.modal-content-translator {
+    background-color: #fefefe;
+    margin: auto; /* Center the modal */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 790px; /* Fixed width */
+    height: 350px; /* Fixed height */
+    position: fixed; /* Stay in place */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centering */
+    border-radius: 10px;
+}
+
+/* Close button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.Translatoriframe::-webkit-scrollbar, .Translatoriframe::-webkit-scrollbar { 
+    display: none;
+}
+.Translatoriframe{
+border-width: 0px;
+
+}
+.sticker{
+    height: 170px;
+    width: 170px;
+    background-color: rgb(205, 204, 204);
+    border-radius: 15px;
+    align-content: center;
+    
+}
+.modal-content-Stickers {
+    background-color: #fefefe;
+    margin: auto; /* Center the modal */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 810px; /* Fixed width */
+    height: 480px; /* Fixed height */
+    position: fixed; /* Stay in place */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centering */
+    border-radius: 10px;
+
+    
+    display: flex;
+    flex-wrap: wrap;
+}
+.StickerGap{
+    padding: 15px;
+}
+.Closemestickers{
+    width: 100%;
+    height: 25px;
+}
+.Sticker:hover{
+background-color: rgba(133, 126, 126, 0);
+
+}
+.modal-content-vminformer{
+    background-color: #fefefe;
+    margin: auto; /* Center the modal */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 430px; /* Fixed width */
+    height: 370px; /* Fixed height */
+    opacity: 91%;
+    position: fixed; /* Stay in place */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centering */
+    border-radius: 10px;
+}
+</style></body></html>

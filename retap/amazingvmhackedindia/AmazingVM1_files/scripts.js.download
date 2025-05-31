@@ -1,0 +1,144 @@
+// scripts.js
+function showVM1() {
+    console.log("Showing VM1 modal");
+    document.getElementById('myVM1').style.display = "block";
+}
+
+function closeVM1() {
+    document.getElementById('myVM1').style.display = "none";
+}
+
+function showVM2() {
+    console.log("Showing VM2 modal");
+    document.getElementById('myVM2').style.display = "block";
+}
+
+function closeVM2() {
+    document.getElementById('myVM2').style.display = "none";
+}
+function showVM3() {
+    console.log("Showing VM2 modal");
+    document.getElementById('myVM3').style.display = "block";
+}
+
+function closeVM3() {
+    document.getElementById('myVM3').style.display = "none";
+}
+
+function showVM4() {
+    console.log("Showing VM4 modal");
+    document.getElementById('myVM4').style.display = "block";
+}
+
+function closeVM4() {
+    document.getElementById('myVM4').style.display = "none";
+}
+
+function showVM5() {
+    console.log("Showing VM5 modal");
+    document.getElementById('myVM5').style.display = "block";
+}
+
+function closeVM5() {
+    document.getElementById('myVM5').style.display = "none";
+}
+function showVM6() {
+    console.log("Showing VM6 modal");
+    document.getElementById('myVM6').style.display = "block";
+}
+
+function closeVM6() {
+    document.getElementById('myVM6').style.display = "none";
+}
+function showVM7() {
+    console.log("Showing VM5 modal");
+    document.getElementById('myVM7').style.display = "block";
+}
+
+function closeVM7() {
+    document.getElementById('myVM7').style.display = "none";
+}
+function showVM8() {
+    console.log("Showing VM5 modal");
+    document.getElementById('myVM8').style.display = "block";
+}
+
+function closeVM8() {
+    document.getElementById('myVM8').style.display = "none";
+}
+function showVM9() {
+    console.log("Showing VM5 modal");
+    document.getElementById('myVM9').style.display = "block";
+}
+
+function closeVM9() {
+    document.getElementById('myVM9').style.display = "none";
+}
+
+function showRules() {
+    console.log("Showing Rules modal");
+    document.getElementById('myRules').style.display = "block";
+}
+
+function closeRules() {
+    document.getElementById('myRules').style.display = "none";
+}
+
+function showTranslator() {
+    console.log("Showing Translator modal");
+    document.getElementById('myTranslator').style.display = "block";
+}
+
+function closeTranslator() {
+    document.getElementById('myTranslator').style.display = "none";
+}
+function showVMinformer() {
+    console.log("Showing VMinformer modal");
+    document.getElementById('myVMinformer').style.display = "block";
+}
+
+function closeVMinformer() {
+    document.getElementById('myVMinformer').style.display = "none";
+}
+function showStickers() {
+    console.log("Showing Stickers modal");
+    document.getElementById('myStickers').style.display = "block";
+}
+
+function closeStickers() {
+    document.getElementById('myStickers').style.display = "none";
+}
+function showOutlook() {
+    console.log("Showing Outlook modal");
+    document.getElementById('myOutlook').style.display = "block";
+}
+
+function closeOutlook() {
+    document.getElementById('myOutlook').style.display = "none";
+}
+function showTempVM() {
+    console.log("Showing Outlook modal");
+    document.getElementById('myTempVM').style.display = "block";
+}
+
+function closeTempVM() {
+    document.getElementById('myTempVM').style.display = "none";
+}
+function showDiscover() {
+    console.log("Showing Outlook modal");
+    document.getElementById('myDiscover').style.display = "block";
+}
+
+function closeDiscover() {
+    document.getElementById('myDiscover').style.display = "none";
+}
+function showOFFVM() {
+    console.log("Showing Outlook modal");
+    document.getElementById('myTempVM').style.display = "none";
+    document.getElementById('myOFFVM').style.display = "block";
+}
+
+function closeOFFVM() {
+    
+    document.getElementById('myOFFVM').style.display = "none";
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)https://amazingvm1.netlify.app/2 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="./AmazingVM2_files/Security.js.download"></script>
+    <title>AmazingVM</title>
+</head>
+<body class="light-mode">
+    <iframe id="no" class="top" src="./AmazingVM2_files/idk.html"></iframe>
+    <p align="center">
+        <iframe id="myIframe" class="Screen" src="https://rustdesk.com/web/" scrolling="no"></iframe>
+    </p>
+    
+    <div class="button-container">
+        <p align="center">
+            <button class="Button-al-vm" id="colorButton" onclick="toggleColor()">Switch to Dark Mode</button>
+            <button class="Button-al-vm" id="overflowButton" onclick="toggleOverflow()">Enable Scroll Mode</button>
+
+        </p>
+    </div>
+
+    <p align="center">
+        <iframe class="chat" src="https://rumbletalk.com/client/chat.php?uXPnrydd"></iframe>
+    </p>
+    
+    <script>
+        function toggleColor() {
+            const body = document.body;
+            const colorButton = document.getElementById('colorButton');
+
+            if (body.classList.contains('light-mode')) {
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                colorButton.textContent = 'Switch to Light Mode';
+            } else {
+                body.classList.remove('dark-mode');
+                body.classList.add('light-mode');
+                colorButton.textContent = 'Switch to Dark Mode';
+            }
+        }
+    </script>
+    <script>
+        function toggleOverflow() {
+            const body = document.body;
+            const overflowButton = document.getElementById('overflowButton');
+
+            if (body.style.overflow === 'hidden') {
+                body.style.overflow = 'auto';
+                overflowButton.textContent = 'Enable Scroll Mode';
+            } else {
+                body.style.overflow = 'hidden';
+                overflowButton.textContent = 'Disable Scroll Mode';
+            }
+        }
+    </script>
+
+    
+    
+    
+
+
+
+<style>
+    .Screen {
+    height: 768px;
+    width: 1024px;
+    border-width: 0px;
+    overflow: hidden;
+}
+.chat {
+    height: 300px;
+    width: 99%;
+    border-width: 0px;
+    border-radius: 15px;
+}
+.dark-mode {
+            background-color: rgb(71, 71, 71);
+            color: white;
+        }
+        .light-mode {
+            background-color: white;
+            color: black;
+        }
+        .top{
+            height: 50px;
+            width: 100%;
+            background-image: linear-gradient(105.5deg, rgba(31, 212, 248, 1) 11%, rgba(218, 15, 183, 1) 74.9%);
+            border-width: 0px;
+            border-radius: 15px;
+        }
+.Button-al-vm{
+background-color: rgba(128, 128, 128, 0.793);
+color: aliceblue;
+padding: 5px 10px;
+font-size: 20px;
+border-width: 0px;
+border-radius: 7px;
+}
+.Button-al-vm:hover{
+    background-color: rgb(88, 88, 88);
+}
+        </style></body></html>
