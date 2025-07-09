@@ -1032,7 +1032,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 if (updateOSButton) {
                     updateOSButton.addEventListener('click', () => {
-                        createNotification('System Update', 'HawkOS 1.4 is downloading. It will install soon!');
+                        createNotification('System Update', 'HawkOS 1.5 is downloading. It will install soon!');
                     });
                 }
                 if (wifiToggle) {
