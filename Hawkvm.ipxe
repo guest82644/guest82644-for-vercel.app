@@ -1,0 +1,145 @@
+#!ipxe
+
+menu G18513 iPXE
+item --gap -- --===== Windows =====--
+item w10 Windows 10
+item w11 Windows 11
+item w8 Windows 8.1
+item w10beta Windows 10 build 10009 uefi only
+item w8beta Windows 8 build 8102
+item wserver Windows Server 2012 r2
+item --gap -- --===== Linux =====--
+item arch Arch Linux
+item manjarolinux Manjaro
+item mint Linux Mint 22.2
+item fedora Fedora 42
+item ubuntu Ubuntu 24.04 lts
+item debian12 Debian 12 XFCE
+item debian13 Debian 13 XFCE
+item opensuselinux OpenSUSE
+item redstar Red Star OS 2.0 ( bios only )
+item redstar1 Red Star OS 3.0 ( bios only )
+item --gap -- --====== Other ======--
+item hbcd HBCD PE
+item gpartedos GParted
+item caillou caillou os 
+item caillouvm caillou os virtualbox only
+item bsod98 item --gap -- --====== iPXE Menus ======--
+item nbxyz netboot.xyz
+item --gap -- --====== Options ======--
+item shell iPXE Shell
+item local Boot from local disk
+item exit Exit
+choose i && goto ${i}
+
+:w10
+kernel https://github.com/RandomGamingIn144p/random144ipxe/releases/download/1.0/memdisk iso raw
+initrd https://archive.org/download/en-us_windows_10_consumer_editions_version_22h2_updated_feb_2023_x64_dvd_c29e4bb3/en-us_windows_10_consumer_editions_version_22h2_updated_feb_2023_x64_dvd_c29e4bb3.iso
+boot
+
+:w11
+kernel https://github.com/RandomGamingIn144p/random144ipxe/releases/download/1.0/memdisk iso raw
+initrd https://archive.org/download/windows-11-24h2-iso_202501/Win11_24H2_English_x64.iso
+boot
+
+:w8
+kernel https://github.com/RandomGamingIn144p/random144ipxe/releases/download/1.0/memdisk iso raw
+initrd https://archive.org/download/win-8.1/Win8.1_EnglishUS_x64.iso
+boot
+
+:w10beta
+kernel https://github.com/RandomGamingIn144p/random144ipxe/releases/download/1.0/memdisk iso raw
+initrd https://archive.org/download/windows-10-build-10009-debombed/Debombed%2010009%20%28UEFI%20only%20won%27t%20work%20on%20Legacy%29.iso
+boot
+
+:w8beta
+kernel https://github.com/RandomGamingIn144p/random144ipxe/releases/download/1.0/memdisk iso raw
+initrd https://archive.org/download/windows-10-build-10009-debombed/Debombed%2010009%20%28UEFI%20only%20won%27t%20work%20on%20Legacy%29.iso
+boot
+
+:wserver
+kernel https://github.com/RandomGamingIn144p/random144ipxe/releases/download/1.0/memdisk iso raw
+initrd https://archive.org/download/en_windows_server_2012_r2_x64_dvd_27079461/en_windows_server_2012_r2_x64_dvd_2707946.iso
+boot
+
+:arch
+kernel https://github.com/RandomGamingIn144p/random144ipxe/releases/download/1.0/memdisk iso raw
+initrd https://mirrors.edge.kernel.org/archlinux/iso/2025.09.01/archlinux-2025.09.01-x86_64.iso
+boot
+
+:manjarolinux
+kernel https://github.com/RandomGamingIn144p/random144ipxe/releases/download/1.0/memdisk iso raw
+initrd https://download.manjaro.org/kde/25.0.8/manjaro-kde-25.0.8-250902-linux612.iso
+boot
+
+:mint
+kernel https://github.com/RandomGamingIn144p/random144ipxe/releases/download/1.0/memdisk iso raw
+initrd https://mirrors.kernel.org/linuxmint/stable/22.2/linuxmint-22.2-cinnamon-64bit.iso
+boot
+
+:fedora
+kernel https://github.com/RandomGamingIn144p/random144ipxe/releases/download/1.0/memdisk iso raw
+initrd https://download.fedoraproject.org/pub/fedora/linux/releases/42/KDE/x86_64/iso/Fedora-KDE-Desktop-Live-42-1.1.x86_64.iso
+boot
+
+:ubuntu
+kernel https://github.com/RandomGamingIn144p/random144ipxe/releases/download/1.0/memdisk iso raw
+initrd https://releases.ubuntu.com/noble/ubuntu-24.04.3-desktop-amd64.iso
+boot
+
+:debian12
+kernel https://github.com/RandomGamingIn144p/random144ipxe/releases/download/1.0/memdisk iso raw
+initrd https://cdimage.debian.org/cdimage/archive/12.12.0-live/amd64/iso-hybrid/debian-live-12.12.0-amd64-xfce.iso
+boot
+
+:debian13
+kernel https://github.com/RandomGamingIn144p/random144ipxe/releases/download/1.0/memdisk iso raw
+initrd https://cdimage.debian.org/cdimage/archive/13.0.0-live/amd64/iso-hybrid/debian-live-13.0.0-amd64-xfce.iso
+boot
+
+:opensuselinux
+kernel https://github.com/RandomGamingIn144p/random144ipxe/releases/download/1.0/memdisk iso raw
+initrd https://download.opensuse.org/distribution/leap/15.6/live/openSUSE-Leap-15.6-KDE-Live-x86_64-Build16.88-Media.iso
+boot
+
+:hbcd
+kernel https://github.com/RandomGamingIn144p/random144ipxe/releases/download/1.0/memdisk iso raw
+initrd https://www.hirensbootcd.org/files/HBCD_PE_x64.iso
+boot
+
+:gpartedos
+kernel https://github.com/RandomGamingIn144p/random144ipxe/releases/download/1.0/memdisk iso raw
+initrd https://ftp.upjs.sk/pub/mirrors/gparted/gparted-live-stable/1.7.0-8/gparted-live-1.7.0-8-amd64.iso
+boot
+
+:caillou
+kernel https://github.com/RandomGamingIn144p/random144ipxe/releases/download/1.0/memdisk iso raw
+initrd https://archive.org/download/caillou-os_20250102/caillou-os-1-0-0.iso
+boot
+
+:caillouvm
+kernel https://github.com/RandomGamingIn144p/random144ipxe/releases/download/1.0/memdisk iso raw
+initrd https://archive.org/download/caillou-os_20250102/caillou-os-1-0-0-virtualbox.iso
+boot
+
+:redstar
+kernel https://github.com/RandomGamingIn144p/random144ipxe/releases/download/1.0/memdisk iso raw
+initrd https://archive.org/download/RedStarOS2/Disc1_Red%20Star%202.0%20Desktop.iso
+boot
+
+:redstar1
+kernel https://github.com/RandomGamingIn144p/random144ipxe/releases/download/1.0/memdisk iso raw
+initrd https://archive.org/download/red-star-en/RedStarEN.iso
+boot
+
+:nbxyz
+chain http://boot.netboot.xyz/menu.ipxe
+
+:shell
+shell
+
+:local
+sanboot --no-describe --drive 0x80
+
+:exit
+exit
