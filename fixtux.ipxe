@@ -1,12 +1,12 @@
 #!ipxe
 
-menu fixtux // vm iPXE
+menu fixtux iPXE
 item --gap -- --===== Windows =====--
 item --gap -- --===== Linux =====--
 item arch Arch Linux
 item mint Linux Mint 22.1
 item debian12 Debian 12
---====== iPXE Menus ======--
+item --gap -- --===== IPXE MENU =====--
 item nbxyz netboot.xyz
 item --gap -- --====== Options ======--
 item shell iPXE Shell
@@ -40,4 +40,3 @@ sanboot --no-describe --drive 0x80
 
 :exit
 exit
-
