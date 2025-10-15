@@ -1,7 +1,6 @@
 #!ipxe
 
 menu fixtux iPXE
-item --gap -- --===== Windows =====--
 item --gap -- --===== Linux =====--
 item arch Arch Linux
 item mint Linux Mint 22.1
@@ -40,3 +39,4 @@ sanboot --no-describe --drive 0x80
 
 :exit
 exit
+
