@@ -1,6 +1,6 @@
 #!ipxe
 
-menu G18513 iPXE
+menu fixtux // vm iPXE
 item --gap -- --===== Windows =====--
 item --gap -- --===== Linux =====--
 item arch Arch Linux
@@ -40,3 +40,4 @@ sanboot --no-describe --drive 0x80
 
 :exit
 exit
+
