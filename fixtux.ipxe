@@ -1,0 +1,42 @@
+#!ipxe
+
+menu G18513 iPXE
+item --gap -- --===== Windows =====--
+item --gap -- --===== Linux =====--
+item arch Arch Linux
+item mint Linux Mint 22.1
+item debian12 Debian 12
+--====== iPXE Menus ======--
+item nbxyz netboot.xyz
+item --gap -- --====== Options ======--
+item shell iPXE Shell
+item local Boot from local disk
+item exit Exit
+choose i && goto ${i}
+
+:arch
+kernel http://13.38.0.20/netboot/arch/latest/vmlinuz
+initrd http://13.38.0.20/netboot/arch/latest/initrd
+boot
+
+:mint
+kernel http://13.38.0.20/netboot/mint/latest/x86_64/live/vmlinuz
+initrd http://13.38.0.20/netboot/mint/latest/x86_64/live/initrd.lz
+boot
+
+:debian12
+kernel http://13.38.0.20/netboot/debian/amd64/vmlinuz
+initrd http://13.38.0.20/netboot/debian/amd64/initrd.gz
+boot
+
+:nbxyz
+chain http://boot.netboot.xyz/menu.ipxe
+
+:shell
+shell
+
+:local
+sanboot --no-describe --drive 0x80
+
+:exit
+exit
