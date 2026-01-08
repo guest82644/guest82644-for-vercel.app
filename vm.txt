@@ -1,0 +1,21 @@
+qemu-img create -f qcow2 redstar.qcow2 60G
+
+qemu-system-x86_64 -M q35,usb=on,acpi=on,hpet=off -m 4G -cpu host,hv_relaxed,hv_frequencies,hv_vpindex,hv_ipi,hv_tlbflush,hv_spinlocks=0x1fff,hv_synic,hv_runtime,hv_time,hv_stimer,hv_vapic -smp cores=2 -accel kvm -drive file=redstar.qcow2 -device usb-tablet -device VGA,vgamem_mb=128 -nic user,model=e1000 -monitor stdio -cdrom "redstar.iso"
+
+qemu-system-x86_64 -M q35,usb=on,acpi=on,hpet=off -global q35-pcihost.x-pci-hole64-fix=false -m 4G -cpu core2duo -accel kvm -drive if=virtio,file=redstar.qcow2 -drive if=floppy,format=raw -device usb-tablet -device VGA,vgamem_mb=64 -nic user,model=virtio -monitor stdio -cdrom redstar.iso -boot d
+
+qemu-system-x86_64 -M q35,usb=on,acpi=on,hpet=off -global q35-pcihost.x-pci-hole64-fix=false -m 4G -cpu core2duo -accel kvm -drive if=virtio,file=redstar.qcow2 -device usb-tablet -device VGA,vgamem_mb=64 -nic user,model=virtio -monitor stdio -cdrom RedStarEN.iso -boot d
+
+qemu-system-i386 -device lsi53c895a,id=vm.scsi_controller -drive if=none,id=vm.hda_drive,file=redstar.img -device scsi-hd,id=vm.hda,drive=vm.hda_drive,bus=vm.scsi_controller.0 -cdrom redstar.iso -device VGA,vgamem_mb=64 -cpu pentium3 -m 256 -M pc,hpet=off,acpi=on,usb=on,accel=tcg -netdev user,id=lan -device rtl8139,netdev=lan -device usb-tablet -rtc base=localtime -monitor stdio
+
+qemu-img create -f qcow2 redstar.img 40G
+
+qemu-img create -f qcow2 redstar.qcow2 60G
+
+qemu-system-x86_64 -M q35,usb=on,acpi=on,hpet=off -m 4G -cpu core2duo,hv_relaxed,hv_frequencies,hv_vpindex,hv_ipi,hv_tlbflush,hv_spinlocks=0x1fff,hv_synic,hv_runtime,hv_time,hv_stimer,hv_vapic -smp cores=2 -accel kvm -drive file=redstar.qcow2 -device usb-tablet -device VGA,vgamem_mb=128 -nic user,model=e1000 -monitor stdio -cdrom "RedStarEN.iso"
+
+qemu-system-x86_64 -M q35,usb=on,acpi=on,hpet=off -global q35-pcihost.x-pci-hole64-fix=false -m 4G -cpu host -accel kvm -drive if=virtio,file=redstar.qcow2 -drive if=floppy,file=xp_q35_x64.img,format=raw -device usb-tablet -device VGA,vgamem_mb=64 -nic user,model=virtio -monitor stdio -cdrom redstar.iso -boot d
+qemu-system-x86_64 -M q35,usb=on,acpi=on,hpet=off -global q35-pcihost.x-pci-hole64-fix=false -m 4G -cpu core2duo -accel kvm -drive if=virtio,file=redstar.qcow2 -drive if=floppy,format=raw -device usb-tablet -device VGA,vgamem_mb=64 -nic user,model=virtio -monitor stdio -cdrom redstar.iso -boot d
+
+qemu-system-x86_64 -M q35,usb=on,acpi=on,hpet=off,kernel_irqchip=on -m 2G -cpu host,hv_relaxed,hv_frequencies,hv_vpindex,hv_ipi,hv_tlbflush,hv_spinlocks=0x1fff,hv_synic,hv_runtime,hv_time,hv_stimer,hv_vapic -smp cores=2 -accel kvm -drive file=win.img -device usb-tablet -nic user,model=e1000 -serial none -rtc base=localtime,clock=vm -parallel none -monitor stdio -drive file=virtio-win.iso,media=cdrom -cdrom win.iso -uuid 3258a350-abb1-4dfc-8c3e-7a09da7f1bfa -vga qxl
+
