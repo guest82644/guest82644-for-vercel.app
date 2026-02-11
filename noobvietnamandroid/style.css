@@ -1,0 +1,2376 @@
+:root {
+    /* Default Dark Mode Colors - these will be set by JS on load based on localStorage */
+    --primary-color: #61dafb; /* Default Android 12 blue */
+    --on-primary-color: #1a1a1a; /* Text color on primary background */
+    --surface-color: #3a3a3a; /* Background for cards/items */
+    --surface-color-rgb: 58, 58, 58; /* RGB for rgba() transparency for cards/items */
+    --on-surface-color: #e0e0e0; /* Text on surface */
+    --background-color: #1a1a1a; /* Screen background */
+    --background-color-rgb: 26, 26, 26; /* RGB for rgba() transparency for screen background */
+    --on-background-color: #e0e0e0; /* Text on background */
+    --outline-color: #444; /* Borders/dividers */
+    /* Liquid Glass specific variables */
+    --liquid-glass-blur: 15px; /* Amount of blur for glass effect */
+
+    /* Lock Screen Customization Defaults */
+    --lock-screen-time-font: 'Roboto', sans-serif;
+    --lock-screen-time-color: #e0e0e0;
+    --lock-screen-date-font: 'Roboto', sans-serif;
+    --lock-screen-date-color: #e0e0e0;
+
+    /* New: App Icon Size Defaults */
+    --app-icon-size: 77px; /* Scaled from 131px */
+    --app-icon-font-size: 1.47em; /* Scaled from 2.5em */
+    --app-icon-gap: 23px; /* Scaled from 39px */
+    --app-icon-border-radius: 20px; /* Material 3 squircular */
+    --app-grid-minmax: 77px; /* Used in grid-template-columns */
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #282c34; /* Dark background */
+    font-family: 'Roboto', sans-serif; /* A common Android font style */
+    color: var(--on-background-color); /* Use CSS variable */
+    overflow: hidden; /* Prevent scrollbars from phone-frame */
+}
+
+.phone-frame {
+    width: 738px; /* Scaled from 1258px */
+    padding: 14px; /* Scaled from 24px */
+    background-color: #333;
+    border-radius: 28px; /* Scaled from 48px */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 11px; /* Scaled from 18px */
+    position: relative; /* Needed for absolute positioning of hardware buttons */
+}
+
+/* New: Hardware Buttons */
+.hardware-button {
+    position: absolute;
+    background-color: #555;
+    border-radius: 4px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.5);
+    z-index: 50; /* Above everything */
+    cursor: pointer;
+    transition: background-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+}
+
+.hardware-button:active {
+    background-color: #777;
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.3), 0 0 1px rgba(0, 0, 0, 0.5);
+}
+
+.hardware-button.power {
+    right: -10px; /* Outside the frame */
+    top: 20%;
+    width: 20px;
+    height: 90px;
+}
+
+.hardware-button.volume {
+    right: -10px; /* Outside the frame */
+    width: 20px;
+    height: 60px;
+}
+
+.hardware-button.volume-up {
+    top: 35%;
+}
+
+.hardware-button.volume-down {
+    top: 48%;
+}
+
+.phone-notch {
+    width: 155px; /* Scaled from 264px */
+    height: 27px; /* Scaled from 46px */
+    background-color: #1a1a1a;
+    border-bottom-left-radius: 20px; /* Scaled from 34px */
+    border-bottom-right-radius: 20px; /* Scaled from 34px */
+    position: relative;
+    top: -12px; /* Scaled from -20px */
+}
+
+.screen {
+    width: 710px; /* Fixed width for the internal screen as per prompt, scaled from 1210px */
+    height: 720px; /* Fixed height for the internal screen as per prompt, scaled from 1220px */
+    background-color: var(--background-color); /* Use CSS variable */
+    border-radius: 14px; /* Scaled from 24px */
+    display: flex;
+    flex-direction: column;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+    position: relative; /* For positioning notification shade and lock screen */
+    background-image: url('cool_wallpaper.png'); /* New: Add wallpaper */
+    background-size: cover; /* New: Ensure wallpaper covers the screen */
+    background-position: center; /* New: Center the wallpaper */
+    overflow: hidden; /* Keep content within bounds */
+}
+
+/* New: Liquid Glass Mode - apply backdrop filter to elements */
+html.liquid-glass-mode .screen,
+html.liquid-glass-mode .status-bar,
+html.liquid-glass-mode .nav-bar,
+html.liquid-glass-mode .lock-screen,
+html.liquid-glass-mode .app-view,
+html.liquid-glass-mode .power-menu-overlay,
+html.liquid-glass-mode .volume-overlay,
+html.liquid-glass-mode .notification-item,
+html.liquid-glass-mode .settings-category,
+html.liquid-glass-mode .app-header,
+html.liquid-glass-mode .power-menu-button,
+html.liquid-glass-mode .lock-screen-action-icon,
+html.liquid-glass-mode .lock-screen-notifications,
+html.liquid-glass-mode .lock-screen-widget,
+html.liquid-glass-mode .album-art-overlay,
+html.liquid-glass-mode .lock-screen-customize-overlay .customization-section {
+    backdrop-filter: blur(var(--liquid-glass-blur));
+    -webkit-backdrop-filter: blur(var(--liquid-glass-blur)); /* For Safari */
+}
+
+/* New: Boot Screen */
+.boot-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.85);
+    z-index: 40; /* Above all normal screen content */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--on-background-color);
+    font-size: 1.05em;
+    opacity: 0; /* Hidden by default */
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+    padding: 24px;
+    box-sizing: border-box;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+}
+
+.boot-screen.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.boot-screen .boot-screen-inner {
+    width: 92%;
+    max-width: 640px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.03);
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.6);
+}
+
+.boot-status { margin-bottom: 14px; color: #d7e7ff; }
+.boot-line { padding: 3px 0; font-size: 0.95em; }
+.boot-line.status-unlocked strong { color: #7fffd4; }
+.boot-divider { margin-top:8px;padding:6px 0;font-weight:bold;color:var(--primary-color); }
+
+.boot-menu { display:flex; flex-direction:column; gap:6px; margin: 10px 0; max-height: 46%; overflow: hidden; }
+.boot-menu-item {
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.02);
+    color: var(--on-background-color);
+    text-align: left;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    transition: background 120ms ease, transform 120ms ease;
+}
+.boot-menu-item.selected {
+    background: linear-gradient(90deg, color-mix(in srgb, var(--primary-color), black 60%), color-mix(in srgb, var(--primary-color), black 30%));
+    color: var(--on-primary-color);
+    transform: translateX(6px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6), 0 0 18px color-mix(in srgb, var(--primary-color), black 60%);
+}
+
+.boot-hint {
+    margin-top: 12px;
+    font-size: 0.9em;
+    color: color-mix(in srgb, var(--on-background-color), transparent 30%);
+    display:flex;
+    gap:12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.boot-screen.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.boot-screen .boot-logo {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+/* New: Loading Spinner */
+.loading-spinner {
+    border: 8px solid rgba(255, 255, 255, 0.3);
+    border-top: 8px solid var(--primary-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin-top: 20px;
+}
+.loading-spinner.small-spinner {
+    width: 30px;
+    height: 30px;
+    border-width: 5px;
+    margin-top: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* New: System Message Overlay (for shutdown/restart messages) */
+.system-message-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background-color); /* Or a dark solid color */
+    z-index: 45; /* Above boot screen and power menu */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--on-background-color);
+    font-size: 2.8em;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.system-message-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.system-message-overlay p {
+    margin-bottom: 20px;
+}
+
+/* New: Screen Off Overlay */
+.screen-off-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 50; /* Highest z-index to cover everything when off */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.screen-off-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* New: Lock Screen Styles (Material 3 inspired) */
+.lock-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent; /* Wallpaper is now the background */
+    z-index: 30; /* Above everything else */
+    display: flex;
+    flex-direction: column; /* Changed to column */
+    justify-content: space-between; /* Distribute content */
+    align-items: center;
+    color: var(--on-background-color);
+    font-family: 'Roboto', sans-serif;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0; /* Hidden by default */
+    pointer-events: none;
+    border-radius: 14px; /* Match screen border-radius */
+    padding-top: 50px; /* Space from top for time/date */
+    padding-bottom: 30px; /* Space from bottom for actions */
+    box-sizing: border-box; /* Include padding in height */
+    overflow: hidden; /* For effects overlay */
+}
+
+.lock-screen.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* New: Lock Screen Effect Overlay (for custom tints/overlays) */
+.lock-screen-effect-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Behind other lock screen content */
+    pointer-events: none;
+    transition: background-color 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+
+/* Default font and color for time/date */
+.lock-screen-time {
+    font-size: 7.0em; /* Very large time */
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(0,0,0,0.5);
+    font-family: var(--lock-screen-time-font);
+    color: var(--lock-screen-time-color);
+    transition: font-size 0.3s ease-in-out;
+}
+
+.lock-screen-date {
+    font-size: 2.5em;
+    margin-bottom: 10px; /* Space before hint/notifications */
+    text-shadow: 0 0 8px rgba(0,0,0,0.5);
+    font-family: var(--lock-screen-date-font);
+    color: var(--lock-screen-date-color);
+}
+
+/* Lock Screen Font/Color Presets */
+.lock-screen.preset-1 .lock-screen-time, .lock-screen.preset-1 .lock-screen-date { font-family: 'Roboto', sans-serif; color: #e0e0e0; }
+.lock-screen.preset-2 .lock-screen-time, .lock-screen.preset-2 .lock-screen-date { font-family: 'Arial', sans-serif; color: #FFFFFF; }
+.lock-screen.preset-3 .lock-screen-time, .lock-screen.preset-3 .lock-screen-date { font-family: 'Times New Roman', serif; color: #FFD700; }
+.lock-screen.preset-4 .lock-screen-time, .lock-screen.preset-4 .lock-screen-date { font-family: 'Courier New', monospace; color: #32CD32; }
+.lock-screen.preset-5 .lock-screen-time, .lock-screen.preset-5 .lock-screen-date { font-family: 'Georgia', serif; font-weight: normal; color: #ADD8E6; }
+.lock-screen.preset-6 .lock-screen-time, .lock-screen.preset-6 .lock-screen-date { font-family: 'Impact', sans-serif; text-transform: uppercase; color: #FF6347; }
+.lock-screen.preset-7 .lock-screen-time, .lock-screen.preset-7 .lock-screen-date { font-family: 'Verdana', sans-serif; font-style: italic; color: #FFA07A; }
+.lock-screen.preset-8 .lock-screen-time, .lock-screen.preset-8 .lock-screen-date { font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif; font-weight: bold; color: #E6E6FA; }
+
+/* New: Lock Screen Top Info (Date + Widget + Time) */
+.lock-screen-top-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 50px;
+}
+.lock-screen-date-container {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between date and small widget */
+    margin-bottom: 10px;
+}
+
+/* New: Lock Screen Widgets */
+.lock-screen-widget {
+    background-color: rgba(var(--surface-color-rgb), 0.7); /* Semi-transparent */
+    border-radius: 16px;
+    padding: 10px 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    color: var(--on-surface-color);
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+.lock-screen-widget.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.lock-screen-widget.small {
+    padding: 5px 10px;
+    font-size: 1em;
+    max-width: 150px; /* Limit width */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.lock-screen-widgets-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 90%;
+    max-width: 500px;
+    margin-top: 20px;
+    margin-bottom: auto; /* Push notifications and actions to bottom */
+    flex-wrap: wrap; /* Allow widgets to wrap in portrait */
+}
+
+/* Music Widget Specifics */
+.music-widget {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    font-size: 1.3em;
+    cursor: pointer;
+}
+.music-widget .album-cover {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+.music-widget .track-info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    flex-grow: 1;
+}
+.music-widget .track-title {
+    font-weight: bold;
+    font-size: 0.9em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+}
+.music-widget .artist-name {
+    font-size: 0.8em;
+    color: var(--on-surface-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+}
+.music-widget .playback-controls {
+    display: flex;
+    gap: 10px;
+}
+.music-widget .playback-controls button {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    color: var(--primary-color);
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.1s ease-out;
+}
+.music-widget .playback-controls button:active {
+    transform: scale(0.9);
+}
+
+/* New: Lock Screen Notification Area */
+.lock-screen-notifications {
+    min-height: 50px; /* Reserve space */
+    width: 80%;
+    max-width: 400px;
+    margin-top: 30px; /* Pull up a bit from date margin */
+    margin-bottom: 30px;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--surface-color); /* Adapt to theme */
+    border-radius: 16px;
+    padding: 10px 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    text-align: center;
+}
+
+.lock-screen-notifications.active {
+    opacity: 1;
+}
+
+.lock-screen-notifications h4 {
+    margin: 0 0 5px 0;
+    font-size: 1.5em;
+    color: var(--primary-color);
+}
+
+.lock-screen-notifications p {
+    margin: 0;
+    font-size: 1.1em;
+    color: var(--on-surface-color);
+}
+
+/* New: Hide unlock hint when notification is active */
+.lock-screen.has-notification .lock-screen-unlock-hint {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* New: Lock Screen Bottom Actions */
+.lock-screen-bottom-actions {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 50px; /* Spacing from sides */
+    box-sizing: border-box;
+}
+
+.lock-screen-action-icon {
+    width: 70px;
+    height: 70px;
+    background-color: var(--surface-color); /* Adapt to theme */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em; /* Icon size */
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease-out;
+}
+
+.lock-screen-action-icon:hover {
+    background-color: color-mix(in srgb, var(--surface-color), white 10%);
+}
+
+.lock-screen-action-icon:active {
+    transform: scale(0.9);
+}
+
+/* New: Flashlight active effect */
+body.flashlight-on {
+    filter: brightness(1.2) contrast(1.1); /* Simple bright effect */
+}
+body.flashlight-on .phone-frame {
+    box-shadow: 0 0 50px rgba(255, 255, 100, 0.7); /* Yellow glow */
+}
+
+/* New: Album Art Overlay */
+.album-art-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(var(--background-color-rgb), 0.9); /* Semi-transparent background */
+    z-index: 36; /* Above lock screen, below customize overlay */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+.album-art-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+.album-art-overlay #albumArtImage {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+.album-art-overlay #closeAlbumArtOverlay {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(var(--surface-color-rgb), 0.7);
+    color: var(--on-surface-color);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5em;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* New: Lock Screen Customization Overlay */
+.lock-screen-customize-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(var(--background-color-rgb), 0.9); /* Semi-transparent background */
+    z-index: 37; /* Highest z-index for customization */
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.lock-screen-customize-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+.lock-screen-customize-overlay .customize-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.lock-screen-customize-overlay .customize-header h3 {
+    margin: 0;
+    color: var(--primary-color);
+    font-size: 2.2em;
+}
+.lock-screen-customize-overlay .customize-header button {
+    background: none;
+    border: none;
+    color: var(--on-surface-color);
+    font-size: 2em;
+    cursor: pointer;
+    padding: 5px;
+}
+.lock-screen-customize-overlay .customize-scroll-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 10px; /* For scrollbar */
+}
+.lock-screen-customize-overlay .customization-section {
+    background-color: rgba(var(--surface-color-rgb), 0.8);
+    border-radius: 16px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+}
+.lock-screen-customize-overlay .customization-section h4 {
+    margin-top: 0;
+    color: var(--primary-color);
+    font-size: 1.6em;
+    margin-bottom: 10px;
+}
+.lock-screen-customize-overlay .preset-options,
+.lock-screen-customize-overlay .effect-options,
+.lock-screen-customize-overlay .widget-toggle-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.lock-screen-customize-overlay .preset-option,
+.lock-screen-customize-overlay .effect-swatch {
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 12px;
+    background-color: var(--outline-color);
+    color: var(--on-surface-color);
+    font-size: 1.1em;
+    border: 2px solid transparent;
+    transition: all 0.2s ease-in-out;
+}
+.lock-screen-customize-overlay .preset-option:hover,
+.lock-screen-customize-overlay .effect-swatch:hover {
+    background-color: color-mix(in srgb, var(--outline-color), white 10%);
+}
+.lock-screen-customize-overlay .preset-option.selected,
+.lock-screen-customize-overlay .effect-swatch.selected {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-color);
+}
+/* Specific styles for preset previews */
+.lock-screen-customize-overlay .preset-option strong {
+    display: block;
+    font-size: 1.2em; /* Time preview */
+}
+.lock-screen-customize-overlay .preset-option span {
+    font-size: 0.8em; /* Date preview */
+    opacity: 0.8;
+}
+.lock-screen-customize-overlay .widget-toggle-options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+.lock-screen-customize-overlay .customization-actions {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 20px;
+    border-top: 1px solid var(--outline-color);
+}
+.lock-screen-customize-overlay .customization-actions button {
+    padding: 12px 25px;
+    border-radius: 16px;
+    font-size: 1.4em;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+#applyLockScreenCustomization {
+    background-color: var(--primary-color);
+    color: var(--on-primary-color);
+    border: none;
+}
+#applyLockScreenCustomization:hover {
+    background-color: color-mix(in srgb, var(--primary-color), black 10%);
+}
+#cancelLockScreenCustomization {
+    background-color: var(--surface-color);
+    color: var(--on-surface-color);
+    border: none;
+}
+#cancelLockScreenCustomization:hover {
+    background-color: color-mix(in srgb, var(--surface-color), white 10%);
+}
+.lock-screen-customize-overlay .profile-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+}
+.lock-screen-customize-overlay .profile-actions button,
+.lock-screen-customize-overlay .profile-actions select {
+    padding: 8px 15px;
+    border-radius: 12px;
+    font-size: 1.1em;
+    background-color: var(--outline-color);
+    color: var(--on-surface-color);
+    border: 1px solid var(--outline-color);
+}
+.lock-screen-customize-overlay .profile-actions button:hover {
+    background-color: color-mix(in srgb, var(--outline-color), white 10%);
+}
+.lock-screen-customize-overlay .profile-actions .delete-button {
+    background-color: #dc3545; /* Red for delete */
+}
+.lock-screen-customize-overlay .profile-actions .delete-button:hover {
+    background-color: #c82333;
+}
+
+/* New: Landscape Mode for Lock Screen */
+.lock-screen.landscape-mode {
+    flex-direction: row; /* Arrange elements horizontally */
+    justify-content: space-around; /* Distribute items */
+    align-items: center; /* Center vertically */
+    padding: 20px; /* Reduce vertical padding, increase horizontal */
+}
+
+.lock-screen.landscape-mode .lock-screen-top-info {
+    flex-direction: row; /* Date/time/widget side-by-side */
+    gap: 30px; /* Space between date/time groups */
+    margin-bottom: 0;
+}
+.lock-screen.landscape-mode .lock-screen-date-container {
+    flex-direction: column; /* Date above widget in landscape */
+    align-items: flex-start;
+    gap: 5px;
+    margin-bottom: 0;
+}
+.lock-screen.landscape-mode .lock-screen-date {
+    font-size: 1.8em; /* Smaller date in landscape */
+    margin-bottom: 0;
+}
+.lock-screen.landscape-mode .lock-screen-time {
+    font-size: 4.5em; /* Smaller time in landscape */
+    margin-bottom: 0;
+}
+
+.lock-screen.landscape-mode .lock-screen-widgets-row {
+    flex-direction: column; /* Stack widgets vertically in landscape */
+    flex-wrap: nowrap; /* Prevent wrapping in landscape */
+    width: auto;
+    max-width: 250px; /* Restrict width */
+    height: 80%; /* Take up vertical space */
+    margin: 0;
+    justify-content: flex-start; /* Align widgets to top */
+}
+
+.lock-screen.landscape-mode .lock-screen-notifications {
+    position: absolute; /* Position notifications more freely */
+    top: 20px;
+    right: 20px;
+    width: auto;
+    max-width: 300px; /* Smaller notification */
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.lock-screen.landscape-mode .lock-screen-bottom-actions {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: auto;
+    flex-direction: column; /* Stack camera/flashlight */
+    gap: 15px;
+    padding: 0;
+}
+.lock-screen.landscape-mode .lock-screen-unlock-hint {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    margin-bottom: 0;
+}
+
+/* New: Power Menu Overlay */
+.power-menu-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background-color); /* Adapt to theme */
+    z-index: 35; /* Above lock screen, below system messages */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.power-menu-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.power-menu-button {
+    width: 70%;
+    max-width: 300px;
+    padding: 15px 20px;
+    border-radius: 12px;
+    background-color: var(--surface-color);
+    color: var(--on-surface-color);
+    font-size: 1.8em;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease-out;
+}
+
+.power-menu-button:hover {
+    background-color: color-mix(in srgb, var(--surface-color), white 10%);
+}
+
+.power-menu-button:active {
+    transform: scale(0.98);
+}
+
+.power-menu-button.cancel {
+    background-color: var(--primary-color);
+    color: var(--on-primary-color);
+}
+.power-menu-button.cancel:hover {
+    background-color: color-mix(in srgb, var(--primary-color), black 10%);
+}
+
+/* New: Volume Overlay */
+.volume-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--background-color); /* Adapt to theme */
+    border-radius: 20px;
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    z-index: 40; /* Above all normal screen content */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    width: 80%; /* Adjust width */
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+.volume-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.volume-overlay .volume-icon {
+    font-size: 2.5em;
+    color: var(--primary-color);
+}
+
+.volume-overlay .volume-bar-container {
+    flex-grow: 1;
+    height: 12px;
+    background-color: var(--outline-color);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.volume-overlay .volume-bar-fill {
+    height: 100%;
+    width: 50%; /* Default 50% */
+    background-color: var(--primary-color);
+    transition: width 0.1s linear;
+}
+
+.volume-overlay #volumeLevel {
+    font-size: 1.5em;
+    color: var(--on-background-color);
+    min-width: 50px; /* Ensure space for % */
+    text-align: right;
+}
+
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 23px; /* Scaled from 20px 39px */
+    font-size: 1.47em; /* Scaled from 2.5em */
+    background-color: var(--background-color); /* Adapt to theme */
+    color: var(--on-background-color);
+    position: relative; /* Ensure it's above content */
+    z-index: 10; /* Above regular content but below notification shade when active */
+}
+
+.status-bar .time {
+    font-weight: bold;
+}
+
+.status-bar .icons span {
+    margin-left: 8px; /* Scaled from 13px */
+}
+
+/* New: Notification Icon styling */
+.status-bar .icon.notification-bell {
+    cursor: pointer;
+    transition: transform 0.1s ease-out;
+}
+.status-bar .icon.notification-bell:active {
+    transform: scale(0.95);
+}
+
+/* New: Notification Shade Styles (KDE Mobile like) */
+.notification-shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Cover the entire screen */
+    background-color: rgba(var(--background-color-rgb), 0.7); /* Slightly transparent background for blur */
+    backdrop-filter: blur(var(--liquid-glass-blur)); /* Apply blur */
+    -webkit-backdrop-filter: blur(var(--liquid-glass-blur)); /* For Safari */
+    z-index: 20; /* Above status bar and app content */
+    display: flex;
+    flex-direction: column;
+    transform: translateY(-100%); /* Start hidden above the screen */
+    transition: transform 0.3s ease-in-out;
+    pointer-events: none; /* Disable interaction when hidden */
+    padding-top: 47px; /* Space for status bar if it stays visible */
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.notification-shade.active {
+    transform: translateY(0); /* Slide down to reveal */
+    pointer-events: auto; /* Enable interaction when active */
+}
+
+.notification-shade::-webkit-scrollbar {
+    width: 9px; /* Width of the scrollbar */
+}
+
+.notification-shade::-webkit-scrollbar-track {
+    background: color-mix(in srgb, var(--background-color), white 10%); /* Color of the scrollbar track based on background */
+    border-radius: 6px; /* Rounded corners for the track */
+}
+
+.notification-shade::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color); /* Color of the scrollbar thumb */
+    border-radius: 6px; /* Rounded corners for the thumb */
+    border: 2px solid color-mix(in srgb, var(--background-color), white 10%); /* Padding around the thumb */
+}
+
+.notification-shade::-webkit-scrollbar-thumb:hover {
+    background-color: color-mix(in srgb, var(--primary-color), black 10%); /* Color of the scrollbar thumb on hover */
+}
+
+.shade-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 23px; /* Scaled from 27px 39px */
+    background-color: var(--background-color); /* Adapt to theme */
+    border-bottom: 1px solid var(--outline-color);
+}
+
+.shade-header h3 {
+    margin: 0;
+    font-size: 2.23em; /* Scaled from 3.8em */
+    color: var(--primary-color);
+}
+
+.shade-header button {
+    background-color: var(--outline-color);
+    color: var(--on-surface-color);
+    padding: 8px 16px; /* Scaled from 13px 27px */
+    border-radius: 16px; /* Material 3 styled button radius */
+    font-size: 1.29em; /* Scaled from 2.2em */
+    transition: background-color 0.2s ease-in-out;
+    margin-left: 6px; /* Add some space between buttons in the header */
+}
+
+.shade-header button:hover {
+    background-color: color-mix(in srgb, var(--outline-color), white 10%);
+}
+
+.notification-list {
+    flex-grow: 1;
+    padding: 16px 23px; /* Scaled from 27px 39px */
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Scaled from 20px */
+}
+
+.notification-item {
+    background-color: rgba(var(--surface-color-rgb), 0.9); /* Darker background for individual notifications */
+    padding: 16px 20px; /* Scaled from 27px 34px */
+    border-radius: 16px; /* Material 3 styled item radius */
+    text-align: left;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3); /* Scaled from 0 5px 13px */
+}
+
+.notification-item h4 {
+    margin: 0 0 6px 0; /* Scaled from 0 0 10px 0 */
+    font-size: 1.64em; /* Scaled from 2.8em */
+    color: var(--primary-color);
+}
+
+.notification-item p {
+    margin: 0;
+    font-size: 1.29em; /* Scaled from 2.2em */
+    color: var(--on-surface-color);
+}
+
+/* New styles for app content and navigation */
+.main-content {
+    flex-grow: 1; /* Takes up all available space between status bar and nav bar */
+    position: relative; /* For absolute positioning of app views */
+    width: 100%;
+    overflow: hidden; /* Important for hiding inactive apps */
+}
+
+.app-view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Changed to flex-start for scrollable content */
+    align-items: center;
+    padding: 23px; /* Scaled from 39px */
+    text-align: center;
+    background-color: var(--surface-color); /* Adapt to theme */
+    opacity: 0;
+    pointer-events: none; /* Disable interaction when hidden */
+    transition: opacity 0.3s ease-in-out;
+    overflow-y: auto; /* Enable vertical scrolling for app content */
+    box-sizing: border-box; /* Include padding in height/width */
+}
+
+.app-view.active {
+    opacity: 1;
+    pointer-events: auto; /* Enable interaction when active */
+}
+
+/* Custom Scrollbar Styles for Webkit browsers */
+.app-view::-webkit-scrollbar {
+    width: 9px; /* Width of the scrollbar */
+}
+
+.app-view::-webkit-scrollbar-track {
+    background: color-mix(in srgb, var(--background-color), white 10%); /* Color of the scrollbar track */
+    border-radius: 6px; /* Rounded corners for the track */
+}
+
+.app-view::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color); /* Color of the scrollbar thumb */
+    border-radius: 6px; /* Rounded corners for the thumb */
+    border: 2px solid color-mix(in srgb, var(--background-color), white 10%); /* Padding around the thumb */
+}
+
+.app-view::-webkit-scrollbar-thumb:hover {
+    background-color: color-mix(in srgb, var(--primary-color), black 10%); /* Color of the scrollbar thumb on hover */
+}
+
+/* Home Screen (App Grid) styles */
+.app-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(var(--app-grid-minmax), 1fr)); /* Flexible grid for icons, scaled from 131px */
+    gap: var(--app-icon-gap); /* Scaled from 39px */
+    width: 100%;
+    max-width: 506px; /* Limit grid width for better appearance, scaled from 863px */
+    padding: 23px 0; /* Scaled from 39px 0 */
+}
+
+.home-widget {
+    background-color: rgba(var(--surface-color-rgb), 0.9); /* Semi-transparent background */
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+    color: var(--on-surface-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    grid-column: span 2; /* Make it span two columns */
+    min-height: 100px; /* Minimum height for better appearance */
+    transition: transform 0.2s ease-in-out;
+}
+
+.home-widget:hover {
+    transform: scale(1.03);
+}
+
+.home-widget:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease-out;
+}
+
+.home-widget .widget-time {
+    font-size: 3em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.home-widget .widget-date {
+    font-size: 1.2em;
+    opacity: 0.8;
+}
+
+.app-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: calc(var(--app-icon-gap) / 2.5); /* Adjusted relative to main gap */
+    cursor: pointer;
+    font-size: var(--app-icon-font-size); /* Scaled from 2.5em */
+    color: var(--on-surface-color);
+    transition: transform 0.2s ease-in-out, font-size 0.2s ease-in-out;
+}
+
+.app-icon:hover {
+    transform: scale(1.05);
+}
+
+/* Touch screen feedback: shrink slightly on active/press */
+.app-icon:active {
+    transform: scale(0.95);
+}
+
+.app-icon img {
+    width: var(--app-icon-size); /* Scaled from 131px */
+    height: var(--app-icon-size); /* Scaled from 131px */
+    border-radius: var(--app-icon-border-radius); /* Material 3 squircular */
+    background-color: var(--outline-color); /* Background for icons without specific color */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4); /* Scaled from 0 5px 13px */
+    transition: border-radius 0.2s ease-in-out, width 0.2s ease-in-out, height 0.2s ease-in-out; /* Smooth transition for icon shape and size change */
+}
+
+/* Luminous Design: light & shadow icon treatment */
+html.luminous-icons .app-icon img,
+.luminous-icons .app-icon img {
+    box-shadow:
+        0 8px 18px rgba(0,0,0,0.45), /* deeper shadow */
+        0 2px 6px rgba(0,0,0,0.35),
+        0 0 18px color-mix(in srgb, var(--primary-color), black 60%); /* subtle colored glow from accent */
+    filter: contrast(1.02) saturate(1.05);
+    transform-origin: center;
+    transition: box-shadow 0.25s ease, transform 0.15s ease;
+}
+
+/* Individual App Styles */
+.app-header {
+    width: 100%;
+    padding: 16px 0; /* Scaled from 27px 0 */
+    margin-bottom: 19px; /* Scaled from 32px */
+    background-color: var(--background-color); /* Adapt to theme */
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.4); /* Scaled from 0 8px 21px */
+}
+
+.app-header h2 {
+    color: var(--primary-color);
+    margin: 0;
+    font-size: 2.64em; /* Scaled from 4.5em */
+}
+
+.app-body {
+    flex-grow: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Changed to flex-start for content flow */
+    padding: 16px; /* Scaled from 27px */
+    box-sizing: border-box; /* Include padding in width/height */
+    color: var(--on-surface-color);
+}
+
+/* Tap Counter specific styles (retained and adjusted) */
+.app-body p {
+    font-size: 2.23em; /* Scaled from 3.8em */
+    margin-bottom: 23px; /* Scaled from 39px */
+}
+
+button {
+    background-color: var(--primary-color);
+    color: var(--on-primary-color);
+    border: none;
+    padding: 16px 31px; /* Scaled from 27px 53px */
+    border-radius: 20px; /* More rounded for Material 3 */
+    font-size: 2.00em; /* Scaled from 3.4em */
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease-out; /* Add transform transition */
+}
+
+button:hover {
+    background-color: color-mix(in srgb, var(--primary-color), black 10%);
+}
+
+/* Touch screen feedback: shrink slightly on active/press */
+button:active {
+    transform: scale(0.98);
+}
+
+/* Settings App specific styles - Material 3 redesign */
+#settingsApp h3 {
+    font-size: 2.8em; /* Larger section headers */
+    color: var(--primary-color); /* Accent color */
+    margin-top: 30px;
+    margin-bottom: 15px;
+    text-align: left;
+    width: 100%;
+    max-width: 500px; /* Match ul width */
+    padding-left: 20px;
+}
+
+#settingsApp ul {
+    list-style: none;
+    padding: 20px; /* Internal padding */
+    margin: 19px 0; /* Scaled from 32px 0 */
+    width: 90%; /* Adjusted for larger screen */
+    max-width: 500px; /* Consistent width */
+    background-color: var(--surface-color); /* Adapt to theme */
+    border-radius: 20px; /* Rounded card corners */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    margin-bottom: 25px; /* Space between cards */
+}
+
+#settingsApp li {
+    background-color: transparent; /* Remove individual li background */
+    padding: 18px 0; /* More padding */
+    margin-bottom: 0; /* Remove margin between list items */
+    border-radius: 0; /* Remove individual border-radius */
+    text-align: left;
+    font-size: 1.8em; /* Larger font */
+    display: flex; /* Allow content and possible value to be on same line */
+    justify-content: space-between; /* Space out content and value */
+    align-items: center;
+    border-bottom: 1px solid var(--outline-color); /* Subtle separator */
+}
+#settingsApp li:last-child {
+    border-bottom: none; /* No border on last item */
+}
+
+#settingsApp .setting-detail {
+    font-size: 1em; /* Relative to li font-size */
+    color: var(--on-surface-color);
+    flex-grow: 1;
+    text-align: left;
+    margin-right: 10px;
+}
+
+#settingsApp .setting-value {
+    color: var(--primary-color);
+    font-weight: normal; /* Less bold for a softer look */
+    text-align: right;
+}
+
+/* Fix for tiny text in Settings About Tablet section */
+#settingsApp .setting-value p {
+    font-size: 1.2em; /* Ensure about tablet text is readable, relative to parent setting-value */
+    line-height: 1.3; /* Improve readability with better line spacing */
+    margin: 0; /* Ensure no extra margin is adding unwanted space */
+}
+
+/* New: Toggle switch for settings */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px; /* Width of the switch container */
+    height: 34px; /* Height of the switch container */
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--outline-color); /* Off state background */
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--on-surface-color); /* Thumb color */
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: var(--primary-color); /* On state background */
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px var(--primary-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+    background-color: var(--on-primary-color); /* Thumb color when primary */
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* Icon shape options within settings */
+.icon-shape-options {
+    display: flex;
+    gap: 15px; /* Increased gap */
+    margin-top: 25px; /* More space */
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* New: Icon Size options within settings */
+.icon-size-options {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.icon-size-switch {
+    background-color: var(--outline-color);
+    color: var(--on-surface-color);
+    padding: 10px 20px;
+    border-radius: 16px;
+    font-size: 1.4em;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease-out;
+    border: 3px solid transparent;
+}
+
+.icon-size-switch:hover {
+    background-color: color-mix(in srgb, var(--outline-color), white 10%);
+}
+
+.icon-size-switch.selected {
+    border-color: var(--primary-color);
+    transform: scale(1.05);
+}
+
+.icon-size-switch:active {
+    transform: scale(0.95);
+}
+
+/* Theme color options within settings */
+.theme-color-options {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.color-swatch {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid transparent; /* Default transparent border */
+    transition: border-color 0.2s ease-in-out, transform 0.1s ease-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+.color-swatch.selected {
+    border-color: var(--primary-color); /* Highlight selected swatch */
+    transform: scale(1.1);
+}
+.color-swatch:hover {
+    transform: scale(1.05);
+}
+.color-swatch:active {
+    transform: scale(0.95);
+}
+
+/* New: Mode (Dark/Light/Liquid Glass) options within settings */
+.mode-options {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.mode-switch {
+    background-color: var(--outline-color);
+    color: var(--on-surface-color);
+    padding: 10px 20px;
+    border-radius: 16px; /* Material 3 styled button radius */
+    font-size: 1.4em;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease-out; /* Add transform transition */
+    border: 3px solid transparent; /* Default transparent border */
+}
+
+.mode-switch:hover {
+    background-color: color-mix(in srgb, var(--outline-color), white 10%);
+}
+
+.mode-switch.selected {
+    border-color: var(--primary-color);
+    transform: scale(1.05);
+}
+
+.mode-switch:active {
+    transform: scale(0.95);
+}
+
+/* New: Language options within settings */
+.language-options {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.language-switch {
+    background-color: var(--outline-color);
+    color: var(--on-surface-color);
+    padding: 10px 20px;
+    border-radius: 16px; /* Material 3 button radius */
+    font-size: 1.4em;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease-out;
+    border: 3px solid transparent;
+}
+
+.language-switch:hover {
+    background-color: color-mix(in srgb, var(--outline-color), white 10%);
+}
+
+.language-switch.selected {
+    border-color: var(--primary-color);
+    transform: scale(1.05);
+}
+
+.language-switch:active {
+    transform: scale(0.95);
+}
+
+/* New: Lock Screen Orientation options within settings */
+.orientation-options {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.orientation-switch {
+    background-color: var(--outline-color);
+    color: var(--on-surface-color);
+    padding: 10px 20px;
+    border-radius: 16px;
+    font-size: 1.4em;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease-out;
+    border: 3px solid transparent;
+}
+.orientation-switch:hover {
+    background-color: color-mix(in srgb, var(--outline-color), white 10%);
+}
+.orientation-switch.selected {
+    border-color: var(--primary-color);
+    transform: scale(1.05);
+}
+.orientation-switch:active {
+    transform: scale(0.95);
+}
+
+/* Calculator specific styles */
+#calculatorApp button {
+    padding: 15px; /* Adjust padding for calculator buttons */
+    font-size: 1.5em; /* Adjust font size for calculator buttons */
+    border-radius: 12px; /* Slightly less rounded */
+    background-color: var(--outline-color); /* Darker background for calculator buttons */
+    color: var(--on-surface-color);
+}
+
+#calculatorApp button:hover {
+    background-color: color-mix(in srgb, var(--outline-color), white 10%);
+}
+
+#calculatorApp button:active {
+    transform: scale(0.95);
+}
+
+#calculatorApp button:nth-child(4n), /* Operators */
+#calculatorApp button:nth-last-child(2) /* = button */ {
+    background-color: var(--primary-color); /* Accent color for operators and equals */
+    color: var(--on-primary-color);
+}
+
+#calculatorApp button:nth-child(4n):hover,
+#calculatorApp button:nth-last-child(2):hover {
+    background-color: color-mix(in srgb, var(--primary-color), black 10%);
+}
+
+/* Gallery App specific styles */
+.gallery-placeholder {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(115px, 1fr)); /* Scaled from 197px */
+    gap: 16px; /* Scaled from 27px */
+    width: 100%;
+    padding: 16px; /* Scaled from 27px */
+    box-sizing: border-box;
+}
+
+.gallery-placeholder img {
+    width: 100%;
+    height: auto;
+    border-radius: 16px; /* More rounded for Material 3 */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4); /* Scaled from 0 5px 13px */
+}
+
+/* Browser App specific styles */
+.url-bar, .search-bar, .app-body input[type="text"], .app-body input[type="tel"], .app-body textarea {
+    width: 90%;
+    padding: 16px; /* Slightly larger padding for Material 3 inputs */
+    margin-bottom: 25px; /* More margin below input */
+    border: 1px solid var(--outline-color);
+    border-radius: 28px; /* More rounded Material 3 input fields */
+    background-color: var(--surface-color); /* Use CSS variable */
+    color: var(--on-surface-color);
+    font-size: 1.64em; /* Scaled from 2.8em */
+    box-sizing: border-box;
+}
+
+.url-bar::placeholder, .search-bar::placeholder, .app-body input::placeholder, .app-body textarea::placeholder {
+    color: color-mix(in srgb, var(--on-surface-color), transparent 50%); /* Placeholder color adapts */
+}
+
+.browser-content {
+    font-size: 2.00em; /* Scaled from 3.4em */
+    margin-bottom: 23px; /* Scaled from 39px */
+    color: var(--on-surface-color);
+}
+
+.browser-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px; /* Scaled from 27px */
+    width: 100%;
+}
+
+.browser-links a {
+    background-color: var(--outline-color);
+    color: var(--primary-color);
+    padding: 12px 23px; /* Scaled from 20px 39px */
+    border-radius: 28px; /* More rounded Material 3 links/buttons */
+    text-decoration: none;
+    font-size: 1.53em; /* Scaled from 2.6em */
+    transition: background-color 0.2s;
+}
+
+.browser-links a:hover {
+    background-color: color-mix(in srgb, var(--outline-color), white 10%);
+}
+
+/* App Store App specific styles */
+.app-list {
+    list-style: none;
+    padding: 0;
+    margin: 19px 0; /* Scaled from 32px 0 */
+    width: 90%;
+    max-width: 386px; /* Scaled from 659px */
+}
+
+.app-list li {
+    background-color: var(--surface-color); /* Use CSS variable */
+    padding: 16px 20px; /* Slightly larger padding */
+    margin-bottom: 15px; /* More margin */
+    border-radius: 16px; /* Material 3 list item radius */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.64em; /* Scaled from 2.8em */
+    color: var(--on-surface-color);
+}
+
+.app-list li button {
+    background-color: var(--primary-color);
+    color: var(--on-primary-color);
+    border: none;
+    padding: 8px 16px; /* Scaled from 13px 27px */
+    border-radius: 16px; /* Material 3 button radius */
+    font-size: 1.47em; /* Scaled from 2.5em */
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.app-list li button:hover {
+    background-color: color-mix(in srgb, var(--primary-color), black 10%);
+}
+
+/* Unified button styles (main action buttons) */
+#settingsApp #sendTestNotification, /* Specifically target the new button in settings */
+#settingsApp #updateOSButton, /* Also settings update button */
+#settingsApp #joinBetaButton, /* New: Also settings join beta button */
+#settingsApp #setLockScreenLandscape, /* New: Landscape setting button */
+#settingsApp #setLockScreenPortrait, /* New: Portrait setting button */
+#gamesApp .app-list li button,
+#artApp button,
+#angryBirdsApp button,
+#collabVMApp button,
+#banSystemApp button,
+#discordApp button,
+#callGoogleApp button,
+#fireCPUApp button,
+#macOSEmulatorApp button,
+#ioSEmulatorApp button,
+#marioRaceApp button,
+#forkieVMDestroyApp button,
+#regeditApp button,
+#cmdApp button,
+#themeApp button,
+#wallpaperApp button,
+#youtubeApp button,
+#firefoxApp button,
+#chromeApp button,
+#copilotAIApp button,
+#noobVietnamApp button,
+#kevinSecurityApp button,
+#minecraftApp button,
+#robloxApp button,
+#vm0b0tApp button,
+#hyperbeamApp button,
+#memzVirusApp button,
+#recentAppsView .app-list li button,
+/* New: Add new app buttons to this style block */
+#cameraApp button,
+#filesApp button,
+#photoApp button,
+#googleMeetApp button,
+#oppoGameApp button,
+#calculatorApp input, /* Calculator input field */
+#gmailApp button,
+#auroraStoreApp button,
+#amazingVMApp button,
+#tiktokApp button,
+#northKoreaApps button,
+#clockApp button,
+#r3dfoxApp button,
+#supermiumApp button,
+#mypalApp button,
+#windowsApp button,
+#office2010App button,
+#colorNoteApp button,
+#radioFMApp button,
+#spotifyApp button,
+#robloxVNApp button,
+#cocCocBrowserApp button,
+#vtvGoApp button,
+#googleMapsApp button,
+#weatherApp button,
+#coolGameApp button,
+#vmosProApp button,
+/* New: AI App buttons */
+#hawkSiriApp button,
+#aiImageGenApp button,
+#photoApp #analyzeImageAIButton {
+    background-color: var(--primary-color);
+    color: var(--on-primary-color);
+    border: none;
+    padding: 12px 23px; /* Scaled from 20px 39px */
+    border-radius: 16px; /* Material 3 button radius */
+    font-size: 1.64em; /* Scaled from 2.8em */
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease-out; /* Add transform transition */
+}
+
+#settingsApp #sendTestNotification:hover,
+#settingsApp #updateOSButton:hover,
+#settingsApp #joinBetaButton:hover, /* New: Hover for join beta button */
+#settingsApp #setLockScreenLandscape:hover,
+#settingsApp #setLockScreenPortrait:hover,
+#gamesApp .app-list li button:hover,
+#artApp button:hover,
+#angryBirdsApp button:hover,
+#collabVMApp button:hover,
+#banSystemApp button:hover,
+#discordApp button:hover,
+#callGoogleApp button:hover,
+#fireCPUApp button:hover,
+#macOSEmulatorApp button:hover,
+#ioSEmulatorApp button:hover,
+#marioRaceApp button:hover,
+#forkieVMDestroyApp button:hover,
+#regeditApp button:hover,
+#cmdApp button:hover,
+#themeApp button:hover,
+#wallpaperApp button:hover,
+#youtubeApp button:hover,
+#firefoxApp button:hover,
+#chromeApp button:hover,
+#copilotAIApp button:hover,
+#noobVietnamApp button:hover,
+#kevinSecurityApp button:hover,
+#minecraftApp button:hover,
+#robloxApp button:hover,
+#vm0b0tApp button:hover,
+#hyperbeamApp button:hover,
+#memzVirusApp button:hover,
+#recentAppsView .app-list li button:hover,
+/* New: Add new app buttons to this style block */
+#cameraApp button:hover,
+#filesApp button:hover,
+#photoApp button:hover,
+#googleMeetApp button:hover,
+#oppoGameApp button:hover,
+#calculatorApp input:hover,
+#gmailApp button:hover,
+#auroraStoreApp button:hover,
+#amazingVMApp button:hover,
+#tiktokApp button:hover,
+#northKoreaApps button:hover,
+#clockApp button:hover,
+#r3dfoxApp button:hover,
+#supermiumApp button:hover,
+#mypalApp button:hover,
+#windowsApp button:hover,
+#office2010App button:hover,
+#colorNoteApp button:hover,
+#radioFMApp button:hover,
+#spotifyApp button:hover,
+#robloxVNApp button:hover,
+#cocCocBrowserApp button:hover,
+#vtvGoApp button:hover,
+#googleMapsApp button:hover,
+#weatherApp button:hover,
+#coolGameApp button:hover,
+#vmosProApp button:hover,
+/* New: AI App buttons */
+#hawkSiriApp button:hover,
+#aiImageGenApp button:hover,
+#photoApp #analyzeImageAIButton:hover {
+    background-color: color-mix(in srgb, var(--primary-color), black 10%);
+}
+
+/* Touch screen feedback: shrink slightly on active/press for these buttons too */
+#settingsApp #sendTestNotification:active,
+#settingsApp #updateOSButton:active,
+#settingsApp #joinBetaButton:active, /* New: Active for join beta button */
+#settingsApp #setLockScreenLandscape:active,
+#settingsApp #setLockScreenPortrait:active,
+#gamesApp .app-list li button:active,
+#artApp button:active,
+#angryBirdsApp button:active,
+#collabVMApp button:active,
+#banSystemApp button:active,
+#discordApp button:active,
+#callGoogleApp button:active,
+#fireCPUApp button:active,
+#macOSEmulatorApp button:active,
+#ioSEmulatorApp button:active,
+#marioRaceApp button:active,
+#forkieVMDestroyApp button:active,
+#regeditApp button:active,
+#cmdApp button:active,
+#themeApp button:active,
+#wallpaperApp button:active,
+#youtubeApp button:active,
+#firefoxApp button:active,
+#chromeApp button:active,
+#copilotAIApp button:active,
+#noobVietnamApp button:active,
+#kevinSecurityApp button:active,
+#minecraftApp button:active,
+#robloxApp button:active,
+#vm0b0tApp button:active,
+#hyperbeamApp button:active,
+#memzVirusApp button:active,
+#recentAppsView .app-list li button:active,
+/* New: Add new app buttons to this style block */
+#cameraApp button:active,
+#filesApp button:active,
+#photoApp button:active,
+#googleMeetApp button:active,
+#oppoGameApp button:active,
+#calculatorApp input:active,
+#gmailApp button:active,
+#auroraStoreApp button:active,
+#amazingVMApp button:active,
+#tiktokApp button:active,
+#northKoreaApps button:active,
+#clockApp button:active,
+#r3dfoxApp button:active,
+#supermiumApp button:active,
+#mypalApp button:active,
+#windowsApp button:active,
+#office2010App button:active,
+#colorNoteApp button:active,
+#radioFMApp button:active,
+#spotifyApp button:active,
+#robloxVNApp button:active,
+#cocCocBrowserApp button:active,
+#vtvGoApp button:active,
+#googleMapsApp button:active,
+#weatherApp button:active,
+#coolGameApp button:active,
+#vmosProApp button:active,
+/* New: AI App buttons */
+#hawkSiriApp button:active,
+#aiImageGenApp button:active,
+#photoApp #analyzeImageAIButton:active {
+    transform: scale(0.98);
+}
+
+/* New: Styles for Recent Apps View */
+#recentAppsView .app-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    margin-bottom: 12px;
+    background-color: var(--surface-color);
+    border-radius: 16px;
+    font-size: 1.64em;
+    color: var(--on-surface-color);
+}
+
+#recentAppsView .recent-app-icon {
+    width: 38px; /* Scaled from 65px */
+    height: 38px; /* Scaled from 65px */
+    margin-right: 12px; /* Scaled from 20px */
+    border-radius: 12px; /* Material 3 squircular */
+    object-fit: cover;
+}
+
+#recentAppsView .no-recent-apps {
+    font-size: 1.64em;
+    color: color-mix(in srgb, var(--on-background-color), transparent 30%);
+    margin-top: 50px;
+}
+
+/* New: HawkSiri Chat specific styles */
+.chat-window {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%;
+    max-width: 500px; /* Constrain width for chat */
+    background-color: var(--background-color);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.chat-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: var(--surface-color);
+}
+
+.chat-messages .message {
+    padding: 10px 15px;
+    border-radius: 15px;
+    max-width: 80%;
+    font-size: 1.3em;
+    line-height: 1.4;
+}
+
+.chat-messages .user-message {
+    background-color: var(--primary-color);
+    color: var(--on-primary-color);
+    align-self: flex-end;
+    border-bottom-right-radius: 5px; /* Tail effect */
+}
+
+.chat-messages .system-message {
+    background-color: var(--outline-color);
+    color: var(--on-surface-color);
+    align-self: flex-start;
+    border-bottom-left-radius: 5px; /* Tail effect */
+}
+.chat-messages .error-message {
+    background-color: #dc3545;
+    color: white;
+    align-self: center;
+    text-align: center;
+}
+
+.chat-input-container {
+    display: flex;
+    padding: 10px;
+    background-color: var(--background-color);
+    border-top: 1px solid var(--outline-color);
+}
+
+.chat-input-container input {
+    flex-grow: 1;
+    border-radius: 20px;
+    margin-right: 10px;
+    padding: 10px 15px;
+    font-size: 1.2em;
+    background-color: var(--surface-color);
+    color: var(--on-surface-color);
+    border: 1px solid var(--outline-color);
+}
+
+.chat-input-container button {
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 1.2em;
+}
+
+/* New: AI Image Generator Specific Styles */
+.ai-image-generator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    gap: 15px;
+    padding: 20px;
+    background-color: var(--surface-color);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.ai-image-generator textarea {
+    width: 100%;
+    min-height: 100px;
+    resize: vertical;
+    border-radius: 12px; /* Slightly less rounded for textarea */
+}
+
+.ai-image-generator .image-output {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.ai-image-generator #generatedImageView {
+    width: 100%;
+    height: auto;
+    max-width: 300px; /* Max size for generated image */
+    max-height: 300px;
+    border-radius: 16px;
+    object-fit: contain;
+    background-color: var(--background-color);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    border: 1px solid var(--outline-color);
+}
+
+.ai-image-generator #imageGenStatus {
+    font-size: 1.1em;
+    color: var(--on-surface-color);
+    text-align: center;
+}
+
+/* New: AI Analysis Result Box for Photos App */
+.ai-result-box {
+    width: 90%;
+    max-width: 500px;
+    background-color: rgba(var(--background-color-rgb), 0.9);
+    border-radius: 16px;
+    padding: 15px;
+    margin-top: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    text-align: left;
+    color: var(--on-background-color);
+}
+.ai-result-box strong {
+    color: var(--primary-color);
+    font-size: 1.3em;
+    display: block; /* Make title take full width */
+    margin-bottom: 5px;
+}
+.ai-result-box p {
+    font-size: 1.1em;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Navigation Bar */
+.nav-bar {
+    width: 100%;
+    height: 62px; /* Scaled from 105px */
+    background-color: var(--background-color); /* Adapt to theme */
+    display: flex;
+    justify-content: space-around; /* Space out the three buttons */
+    align-items: center;
+    padding-bottom: 8px; /* Scaled from 13px */
+}
+
+.nav-button {
+    background: none;
+    border: none;
+    font-size: 2.99em; /* Scaled from 5.1em */
+    cursor: pointer;
+    color: var(--on-background-color);
+    padding: 8px 20px; /* Scaled from 13px 34px */
+    border-radius: 50%;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease-out; /* Add transform transition */
+    flex-grow: 1; /* Allow buttons to take available space */
+    text-align: center;
+}
+
+.nav-button:hover {
+    background-color: var(--outline-color);
+}
+
+/* Touch screen feedback: shrink slightly on active/press */
+.nav-button:active {
+    transform: scale(0.95);
+}
+
+.nav-button.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.nav-button.disabled:hover {
+    background-color: transparent; /* No hover effect when disabled */
+}
+
+.phone-bar {
+    width: 155px; /* Scaled from 264px */
+    height: 6px; /* Scaled from 10px */
+    background-color: #555;
+    border-radius: 3px; /* Scaled from 5px */
+    position: relative;
+    bottom: -12px; /* Scaled from -20px */
+}
+
+/* TV & Media settings - unified button sizing */
+.tv-button,
+.tv-standard-button {
+    padding: 8px 12px;
+    font-size: 1.1em;
+    border-radius: 12px;
+    background-color: var(--outline-color);
+    color: var(--on-surface-color);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, transform 0.08s ease-out;
+}
+.tv-button:hover,
+.tv-standard-button:hover {
+    background-color: color-mix(in srgb, var(--outline-color), white 8%);
+}
+.tv-button:active,
+.tv-standard-button:active {
+    transform: scale(0.98);
+}
+
+/* Keep existing tv-standard color accent style but size controlled by tv-standard-button */
+.tv-standard {
+    background-color: transparent; /* allow tv-standard-button to control bg */
+    color: var(--primary-color);
+    border: 1px solid rgba(0,0,0,0); /* placeholder for consistent sizing */
+}
+
+/* New: Dynamic Island styles */
+.dynamic-island {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 8px;
+    min-width: 120px;
+    max-width: 420px;
+    height: 40px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(var(--background-color-rgb), 0.45);
+    color: var(--on-background-color);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    z-index: 60;
+    transition: transform 300ms cubic-bezier(.2,.9,.3,1), opacity 220ms ease, backdrop-filter 220ms ease;
+    backdrop-filter: blur(6px) saturate(110%);
+    pointer-events: none;
+    opacity: 0;
+}
+
+/* visible state */
+.dynamic-island.active {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+}
+
+/* island content */
+.dynamic-island .island-content {
+    font-size: 0.95em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* hardware snap button */
+.hardware-button.snap {
+    right: -36px;
+    top: 12%;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: linear-gradient(180deg, #666, #444);
+}
+
+/* Windows Aero Mode: translucent glassy panels and soft accent bloom */
+html.aero-mode {
+    --background-color: rgba(225,235,245,0.85);
+    --surface-color: rgba(245,248,252,0.85);
+    --surface-color-rgb: 245,248,252;
+    --on-background-color: #0f1720;
+    --on-surface-color: #0f1720;
+    --outline-color: rgba(190,200,210,0.6);
+    --liquid-glass-blur: 10px;
+}
+html.aero-mode .screen {
+    background-color: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(240,245,250,0.6));
+    background-blend-mode: overlay;
+    border: 1px solid rgba(255,255,255,0.35);
+    box-shadow: 0 10px 30px rgba(25,40,60,0.12), inset 0 1px 0 rgba(255,255,255,0.6);
+    backdrop-filter: blur(6px) saturate(120%);
+}
+
+/* subtle glass cards for Aero */
+html.aero-mode .app-view,
+html.aero-mode .lock-screen-notifications,
+html.aero-mode .notification-item,
+html.aero-mode .lock-screen-widget,
+html.aero-mode .power-menu-overlay,
+html.aero-mode .volume-overlay,
+html.aero-mode .app-header,
+html.aero-mode .home-widget {
+    background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(250,250,253,0.5));
+    border: 1px solid rgba(255,255,255,0.45);
+    box-shadow: 0 6px 18px rgba(20,40,70,0.08);
+    color: var(--on-surface-color);
+}
+
+/* accent bloom for primary color in Aero */
+html.aero-mode .app-icon img,
+html.aero-mode .dynamic-island,
+html.aero-mode .power-menu-button.cancel {
+    box-shadow: 0 8px 28px color-mix(in srgb, var(--primary-color), black 70%), 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* reuse existing Dark Glass block below */
+ /* Dark Glass Mode: translucent, moody glass */
+html.dark-glass-mode {
+    --background-color: rgba(24,24,26,0.45);
+    --surface-color: rgba(40,40,44,0.35);
+    --surface-color-rgb: 40,40,44;
+    --on-background-color: #e9eef6;
+    --on-surface-color: #e9eef6;
+    --outline-color: rgba(255,255,255,0.06);
+    --liquid-glass-blur: 12px;
+}
+html.dark-glass-mode .screen {
+    background-color: rgba(10,10,12,0.35);
+    background-blend-mode: overlay;
+    border: 1px solid rgba(255,255,255,0.03);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+    backdrop-filter: blur(8px) saturate(110%);
+}
+
+/* Seamless animation defaults (system-wide) */
+* {
+    transition-timing-function: cubic-bezier(.2,.9,.3,1);
+    transition-duration: 220ms;
+    will-change: transform, opacity;
+}
+
+/* Slightly smoother loading spinner */
+.loading-spinner {
+    animation: spin 0.95s linear infinite;
+}
+
+/* Particle / Halo canvas overlay for Luminous Motion Effects */
+#particleCanvas {
+    position: absolute;
+    inset: 0;
+    pointer-events: none; /* Always let taps pass through */
+    z-index: 9999;
+}
+
+/* Terminal app menu bar */
+.terminal-app {
+    width: 100%;
+    max-width: 860px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    color: var(--on-surface-color);
+}
+.terminal-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(var(--surface-color-rgb),0.85);
+    padding: 8px 12px;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    font-size: 1.1em;
+}
+.terminal-menu .menu-left,
+.terminal-menu .menu-right {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+.menu-item {
+    cursor: default;
+    padding: 6px 8px;
+    border-radius: 8px;
+    color: var(--on-surface-color);
+    transition: background-color 160ms ease, transform 80ms ease;
+}
+.menu-item:hover {
+    background-color: color-mix(in srgb, var(--outline-color), white 8%);
+    transform: translateY(-1px);
+}
+
+/* Terminal body */
+.terminal-body {
+    background: linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02));
+    border-radius: 0 0 12px 12px;
+    border: 1px solid rgba(0,0,0,0.06);
+    padding: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15) inset;
+}
+.terminal-output {
+    min-height: 160px;
+    max-height: 340px;
+    overflow-y: auto;
+    background: rgba(var(--background-color-rgb), 0.02);
+    border-radius: 10px;
+    padding: 12px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+    font-size: 1.1em;
+    color: var(--on-surface-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.terminal-input-row {
+    display:flex;
+    gap:8px;
+    margin-top:10px;
+}
+.terminal-input-row input {
+    flex:1;
+    padding:10px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--outline-color);
+    background: var(--surface-color);
+    color: var(--on-surface-color);
+    font-size: 1.05em;
+}
+.terminal-input-row button {
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 1.05em;
+}
+
+/* small responsive tweaks */
+@media (max-width: 640px) {
+    .terminal-menu { font-size: 1em; padding: 6px 8px; }
+    .terminal-output { min-height: 120px; }
+}
+
+/* Bootloader fixed-size buttons */
+#unlockBootloaderButton,
+#lockBootloaderButton {
+    flex: none; /* prevent stretching */
+    width: 160px; /* fixed width */
+    min-width: 140px;
+    max-width: 200px;
+    padding: 10px 14px;
+    font-size: 1.1em;
+    border-radius: 12px;
+    border: none;
+    color: var(--on-primary-color, #fff);
+    cursor: pointer;
+    transition: transform 0.12s ease, background-color 0.12s ease;
+}
+
+/* Ensure layout container keeps buttons side-by-side on larger widths and stacked on very narrow screens */
+#unlockBootloaderButton {
+    background: #b22222; /* keep existing red style */
+}
+#lockBootloaderButton {
+    background: var(--outline-color);
+    color: var(--on-surface-color);
+}
+
+/* Slight active/hover feedback */
+#unlockBootloaderButton:hover,
+#lockBootloaderButton:hover {
+    transform: translateY(-2px);
+}
+#unlockBootloaderButton:active,
+#lockBootloaderButton:active {
+    transform: translateY(0);
+}
+
+/* Responsive fallback: stack buttons on very small widths */
+@media (max-width: 420px) {
+    #unlockBootloaderButton,
+    #lockBootloaderButton {
+        width: 100%;
+    }
+}
