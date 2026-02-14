@@ -5046,12 +5046,218 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 'northKoreaApps',
             name: 'NK Apps',
             icon: 'north_korea_icon.png',
-            header: 'North Korean Apps',
+            header: 'NK Apps — KCTV & KCNA Watch',
             contentHTML: `
-                <p>Access state-approved applications.</p>
-                <button>Launch News App</button>
-                <button style="margin-top: 15px;">Browse Approved Content</button>
-            `
+                <div style="max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:12px;">
+                    <p style="margin:0 0 8px 0;">Watch or browse Korea Central TV (KCTV) livestreams and archives, and read KCNA feeds for research/private study.</p>
+
+                    <h4>KCTV Live (PAL 720×576)</h4>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+                        <button id="kctvOpenLiveBtn" style="padding:10px 14px;background:var(--primary-color);color:var(--on-primary-color);">Open Live Player (mpd)</button>
+                        <button id="kctvOpenHlsBtn" style="padding:10px 14px;background:var(--outline-color);">Open Live (HLS .m3u8)</button>
+                        <button id="kctvOpenMpdBtn" style="padding:10px 14px;background:var(--outline-color);">Open Live (MPD)</button>
+                        <button id="kctvOpenInNewTab" style="padding:10px 14px;background:var(--outline-color);">Open manifest in new tab</button>
+                        <label style="display:flex;align-items:center;gap:8px;margin-left:auto;">
+                            <input id="kctvAutoOnOutgoing" type="checkbox">
+                            <span style="font-size:0.95em;">Auto KCTV on outgoing</span>
+                        </label>
+                    </div>
+                    <div id="kctvPlayerWrap" style="width:100%;max-width:720px;background:var(--surface-color);padding:12px;border-radius:12px;display:none;flex-direction:column;gap:8px;">
+                        <div style="font-size:0.95em;color:var(--on-surface-color);">KCTV [Livestream] — PAL 720×576 (beta)</div>
+                        <video id="kctvPlayer" controls playsinline style="width:100%;height:auto;background:#000;border-radius:8px;">
+                            <source id="kctvSource" src="https://streamer.nknews.org/tvdash/stream.mpd" type="application/dash+xml">
+                            Your browser cannot play this stream directly; open in a supporting player.
+                        </video>
+                        <div style="font-size:0.85em;color:color-mix(in srgb,var(--on-surface-color),transparent 50%);">Note: DASH manifest provided; some browsers may require a DASH-capable player or external player support.</div>
+                    </div>
+
+                    <h4>KCTV Archive & KCNA</h4>
+                    <div style="display:flex;flex-direction:column;gap:8px;">
+                        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                            <button id="kctvArchiveBtn" style="padding:10px 14px;">Open KCTV Archive (last 24h)</button>
+                            <button id="kcnaEnBtn" style="padding:10px 14px;background:var(--outline-color);">KCNA (EN) — Latest Articles</button>
+                            <button id="kcnaKrBtn" style="padding:10px 14px;background:var(--outline-color);">KCNA (KR) — Latest (korea only)</button>
+                        </div>
+                        <div id="kctvArchiveInfo" style="font-size:0.9em;color:var(--on-surface-color);">
+                            KCTV Archive: videos published in the last 24 hours; KCNA archive and article counts are shown when available.
+                        </div>
+                    </div>
+
+                    <h4>Schedule & Disclaimer</h4>
+                    <div style="background:rgba(0,0,0,0.02);padding:10px;border-radius:8px;font-size:0.9em;color:var(--on-surface-color);">
+                        <strong>Schedule:</strong>
+                        <ul style="margin:6px 0 0 18px;">
+                            <li>News broadcasts at 5:00pm, 8:00pm, and 10:30pm daily</li>
+                            <li>TV broadcasts Mon–Fri from 3:00–10:30pm</li>
+                            <li>Sunday/holidays and 1st/11th/21st of month: 9:00–10:30pm (Pyongyang time)</li>
+                        </ul>
+                        <p style="margin-top:8px;"><strong>Disclaimer:</strong> KCNA Watch provides publicly available signals for research and private study and does not derive income from sourced signals; services comply with applicable sanctions and provide material for public-interest research.</p>
+                    </div>
+                </div>
+            `,
+            init: (appElement) => {
+                const openLiveBtn = appElement.querySelector('#kctvOpenLiveBtn');
+                const openHlsBtn = appElement.querySelector('#kctvOpenHlsBtn');
+                const openMpdBtn = appElement.querySelector('#kctvOpenMpdBtn');
+                const openInNewTabBtn = appElement.querySelector('#kctvOpenInNewTab');
+                const kctvPlayerWrap = appElement.querySelector('#kctvPlayerWrap');
+                const kctvPlayer = appElement.querySelector('#kctvPlayer');
+                const kctvSource = appElement.querySelector('#kctvSource');
+                const archiveBtn = appElement.querySelector('#kctvArchiveBtn');
+                const kcnaEnBtn = appElement.querySelector('#kcnaEnBtn');
+                const kcnaKrBtn = appElement.querySelector('#kcnaKrBtn');
+                const autoToggle = appElement.querySelector('#kctvAutoOnOutgoing');
+
+                // restore auto toggle preference
+                autoToggle.checked = localStorage.getItem('kctvAutoOnOutgoing') === 'true';
+                autoToggle.addEventListener('change', () => {
+                    localStorage.setItem('kctvAutoOnOutgoing', autoToggle.checked ? 'true' : 'false');
+                    createNotification('KCTV', `Auto KCTV on outgoing ${autoToggle.checked ? 'enabled' : 'disabled'}.`);
+                });
+
+                // helper to show player area and set source; supports mpd and m3u8 (HLS)
+                function playStream(url, typeLabel) {
+                    kctvPlayerWrap.style.display = 'flex';
+                    // clear any previous source children
+                    try {
+                        // If the player has <source id="kctvSource"> present (mpd path), update it; otherwise set src directly
+                        if (kctvSource) {
+                            // if using mpd, set source's src and set type attribute; otherwise set video.src to url and remove source element
+                            if (url.endsWith('.mpd')) {
+                                kctvSource.src = url;
+                                // set type attribute if available
+                                kctvSource.type = 'application/dash+xml';
+                                // ensure video element uses the source
+                                kctvPlayer.load();
+                            } else {
+                                // for m3u8/hls: many browsers only Safari supports natively; set src directly and attempt play
+                                // remove <source> to avoid conflicts
+                                if (kctvSource && kctvSource.parentNode) {
+                                    try { kctvSource.parentNode.removeChild(kctvSource); } catch (e) {}
+                                }
+                                kctvPlayer.src = url;
+                                kctvPlayer.load();
+                            }
+                        } else {
+                            // fallback: set src directly
+                            kctvPlayer.src = url;
+                            kctvPlayer.load();
+                        }
+
+                        kctvPlayer.play().catch(()=>{ /* autoplay blocked */ });
+                        createNotification('KCTV', `Attempting to play KCTV livestream (${typeLabel}).`);
+                    } catch (e) {
+                        console.warn('KCTV play error', e);
+                        createNotification('KCTV', 'Failed to start playback in this browser; try opening the manifest in a supporting player.');
+                    }
+                }
+
+                // Primary button: play mpd (DASH) as before
+                if (openLiveBtn) {
+                    openLiveBtn.addEventListener('click', () => {
+                        playStream('https://streamer.nknews.org/tvdash/stream.mpd', 'MPD (DASH)');
+                    });
+                }
+
+                // HLS button: m3u8 stream
+                if (openHlsBtn) {
+                    openHlsBtn.addEventListener('click', () => {
+                        // HLS: many desktop browsers need Hls.js; fallback to direct src (Safari supports natively)
+                        const hlsUrl = 'https://streamer.nknews.org/tvhls/stream.m3u8';
+                        playStream(hlsUrl, 'HLS (.m3u8)');
+                    });
+                }
+
+                // MPD explicit button: same as live mpd but provided for clarity
+                if (openMpdBtn) {
+                    openMpdBtn.addEventListener('click', () => {
+                        const mpdUrl = 'https://streamer.nknews.org/tvdash/stream.mpd';
+                        playStream(mpdUrl, 'MPD (DASH)');
+                    });
+                }
+
+                // Open manifest(s) in new tab: allow user to pick based on current UI preference
+                if (openInNewTabBtn) {
+                    openInNewTabBtn.addEventListener('click', () => {
+                        try {
+                            // open both manifest types in separate tabs for convenience
+                            window.open('https://streamer.nknews.org/tvhls/stream.m3u8', '_blank', 'noopener');
+                            window.open('https://streamer.nknews.org/tvdash/stream.mpd', '_blank', 'noopener');
+                            createNotification('KCTV', 'Opened HLS (.m3u8) and DASH (.mpd) manifests in new tabs.');
+                        } catch (e) {
+                            createNotification('KCTV', 'Failed to open manifests (popup blocked?).');
+                        }
+                    });
+                }
+
+                archiveBtn.addEventListener('click', () => {
+                    try {
+                        window.open('https://kcnawatch.org/kctv-archive/', '_blank', 'noopener');
+                        createNotification('KCTV Archive', 'Opened KCTV archive (kcnawatch).');
+                    } catch (e) {
+                        createNotification('KCTV Archive', 'Failed to open archive (popup blocked).');
+                    }
+                });
+
+                kcnaEnBtn.addEventListener('click', async () => {
+                    try {
+                        window.open('https://kcnawatch.org/', '_blank', 'noopener');
+                        createNotification('KCNA', 'Opened KCNA Watch (EN).');
+                    } catch (e) {
+                        createNotification('KCNA', 'Failed to open KCNA Watch (popup blocked).');
+                    }
+                });
+
+                kcnaKrBtn.addEventListener('click', () => {
+                    try {
+                        window.open('https://kcnawatch.org/article/183982/', '_blank', 'noopener');
+                        createNotification('KCNA (KR)', 'Opened KCNA KR feed.');
+                    } catch (e) {
+                        createNotification('KCNA (KR)', 'Failed to open KCNA KR (popup blocked).');
+                    }
+                });
+
+                // Expose a helper that other apps or outgoing actions can call to auto-open KCTV if enabled
+                window._maybeAutoOpenKCTV = function(reasonText) {
+                    try {
+                        const enabled = localStorage.getItem('kctvAutoOnOutgoing') === 'true';
+                        if (!enabled) return false;
+                        // show notification and open player
+                        createNotification('KCTV Auto', `Auto-opening KCTV due to: ${reasonText || 'outgoing action'}`);
+                        // show KCTV app view if screen on
+                        if (!isScreenOn) toggleScreenOn();
+                        showApp('northKoreaApps');
+                        setTimeout(() => {
+                            // simulate click to open live (choose DASH by default)
+                            const btn = document.getElementById('kctvOpenLiveBtn');
+                            if (btn) btn.click();
+                        }, 300);
+                        return true;
+                    } catch (e) {
+                        console.warn('Auto open KCTV failed', e);
+                        return false;
+                    }
+                };
+
+                // optional: show counts/summary for KCNA (best-effort fetch)
+                async function fetchKCNASummary() {
+                    try {
+                        // lightweight fetch to kcnawatch to attempt to extract article counts (best-effort)
+                        const resp = await fetch('https://kcnawatch.org/');
+                        if (!resp.ok) return;
+                        const text = await resp.text();
+                        // best-effort regex to find "articles" numbers (not guaranteed)
+                        const match = text.match(/([0-9,]{1,})\s+articles/i);
+                        if (match && match[1]) {
+                            createNotification('KCNA', `KCNA archive samples: ${match[1]} articles (scraped).`);
+                        }
+                    } catch (e) {
+                        // ignore fetch failures (CORS, blocking)
+                    }
+                }
+                // run a background summary attempt
+                setTimeout(fetchKCNASummary, 1200);
+            }
         },
         {
             id: 'clockApp',
