@@ -1066,6 +1066,54 @@ body.flashlight-on .phone-frame {
     z-index: 10; /* Above regular content but below notification shade when active */
 }
 
+/* Device mode toggle UI (Phone / Computer) */
+.status-bar .device-mode {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 12px;
+}
+.status-bar .device-mode button {
+    background: var(--outline-color);
+    color: var(--on-surface-color);
+    border: none;
+    padding: 6px 10px;
+    border-radius: 10px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 160ms ease, transform 100ms ease;
+}
+.status-bar .device-mode button[aria-pressed="true"] {
+    background: var(--primary-color);
+    color: var(--on-primary-color);
+    transform: translateY(-1px);
+}
+
+/* Computer mode: expose pointer cursor and subtle focus outlines to mimic desktop interaction */
+html.computer-mode .screen,
+html.computer-mode .app-view,
+html.computer-mode .nav-bar,
+html.computer-mode .status-bar,
+html.computer-mode .notification-shade {
+    cursor: auto;
+}
+html.computer-mode .app-icon { cursor: default; }
+html.computer-mode .app-icon .app-icon-inner { cursor: pointer; }
+
+/* Add a small hovering mouse indicator when in computer mode (for demo) */
+.computer-caret {
+    position: absolute;
+    width: 18px;
+    height: 24px;
+    background: transparent;
+    pointer-events: none;
+    z-index: 9998;
+    display: none;
+    transform: translate(-6px, -6px);
+}
+html.computer-mode .computer-caret { display: block; }
+.computer-caret svg { width: 100%; height: 100%; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.35)); }
+
 .status-bar .time {
     font-weight: bold;
 }
@@ -1311,6 +1359,28 @@ body.flashlight-on .phone-frame {
     background-color: var(--outline-color); /* Background for icons without specific color */
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4); /* Scaled from 0 5px 13px */
     transition: border-radius 0.2s ease-in-out, width 0.2s ease-in-out, height 0.2s ease-in-out; /* Smooth transition for icon shape and size change */
+}
+
+/* Moved badge displayed on app icons when an app has been relocated */
+.app-icon .moved-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ffb74d;
+    color: #111;
+    font-weight: 700;
+    font-size: 0.78em;
+    padding: 4px 7px;
+    border-radius: 999px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.28);
+    transform: translate(0, 0);
+    pointer-events: none;
+    z-index: 6;
+}
+
+/* Slight visual emphasis for moved icons (outline) */
+.app-icon[data-moved] {
+    box-shadow: 0 6px 20px rgba(255,183,77,0.08);
 }
 
 /* Luminous Design: light & shadow icon treatment */
