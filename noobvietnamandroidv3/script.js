@@ -3947,7 +3947,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (joinGuestBtn) {
                     joinGuestBtn.addEventListener('click', () => {
                         try {
-                            window.open('https://discord.gg/guest82644', '_blank', 'noopener');
+                            window.open('https://discord.gg/nFAdpWYmJR', '_blank', 'noopener');
                             createNotification('Discord', 'Opening invite: guest82644');
                         } catch (e) {
                             createNotification('Discord', 'Could not open invite (popup blocked).');
@@ -3958,7 +3958,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (joinAltBtn) {
                     joinAltBtn.addEventListener('click', () => {
                         try {
-                            window.open('https://discord.gg/t6BhPtVaSs', '_blank', 'noopener');
+                            window.open('https://discord.gg/nFAdpWYmJR', '_blank', 'noopener');
                             createNotification('Discord', 'Opening alternate invite');
                         } catch (e) {
                             createNotification('Discord', 'Could not open invite (popup blocked).');
