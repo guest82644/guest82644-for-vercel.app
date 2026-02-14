@@ -2962,11 +2962,23 @@ html.dark-glass-mode .notification-shade {
     font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
-/* Touch & Gesture helpers: enable smooth touch scrolling and allow JS pinch handling */
+/* Touch & Gesture helpers: enable smooth touch scrolling and allow JS pinch handling
+   Allow vertical pan by default so inputs can be focused and the on-screen keyboard appears.
+   JS pinch handling remains supported via touchmove listeners; form controls opt into default behavior. */
 .screen {
-    touch-action: none; /* we handle pinch/drag gestures via JS */
+    touch-action: pan-y; /* allow vertical scrolling and keyboard focus while keeping JS pinch handling */
     -webkit-user-select: none;
-    -ms-touch-action: none;
+    -ms-touch-action: pan-y;
+}
+
+/* Ensure interactive form controls and contenteditable areas use native touch handling
+   so virtual keyboards and text selection behave normally. */
+.screen input,
+.screen textarea,
+.screen select,
+.screen [contenteditable] {
+    touch-action: auto !important;
+    -webkit-user-select: text !important;
 }
 
 /* Allow user-friendly momentum scrolling for scrollable app views */
