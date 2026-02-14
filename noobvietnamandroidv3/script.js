@@ -3807,7 +3807,6 @@ document.addEventListener('DOMContentLoaded', () => {
             init: (appElement) => {
                 const usersBtn = appElement.querySelector('#collab_usersOnline');
                 const takeTurnBtn = appElement.querySelector('#collab_takeTurn');
-                const keyboardBtn = appElement.querySelector('#collab_keyboard');
                 const voteResetBtn = appElement.querySelector('#collab_voteReset');
                 const screenshotBtn = appElement.querySelector('#collab_screenshot');
                 const cadBtn = appElement.querySelector('#collab_ctrlAltDel');
@@ -3828,7 +3827,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (usersBtn) usersBtn.addEventListener('click', () => createNotification('CollabVM', `Users online for ${chooseDemoVM()}: 7`));
                 if (takeTurnBtn) takeTurnBtn.addEventListener('click', () => createNotification('CollabVM', `You requested the next turn on ${chooseDemoVM()}.`));
-                if (keyboardBtn) keyboardBtn.addEventListener('click', () => createNotification('CollabVM', 'Keyboard session requested (virtual keyboard).'));
                 if (voteResetBtn) voteResetBtn.addEventListener('click', () => createNotification('CollabVM', 'Vote to reset has been cast.'));
                 if (screenshotBtn) screenshotBtn.addEventListener('click', () => createNotification('CollabVM', 'Screenshot captured and saved to Gallery.'));
                 if (cadBtn) cadBtn.addEventListener('click', () => createNotification('CollabVM', 'Ctrl+Alt+Del broadcast to VM.'));
@@ -4305,7 +4303,6 @@ document.addEventListener('DOMContentLoaded', () => {
             init: (appElement) => {
                 const usersBtn = appElement.querySelector('#vm0_usersOnline');
                 const takeTurnBtn = appElement.querySelector('#vm0_takeTurn');
-                const keyboardBtn = appElement.querySelector('#vm0_keyboard');
                 const voteResetBtn = appElement.querySelector('#vm0_voteReset');
                 const screenshotBtn = appElement.querySelector('#vm0_screenshot');
                 const cadBtn = appElement.querySelector('#vm0_ctrlAltDel');
@@ -4327,11 +4324,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (takeTurnBtn) {
                     takeTurnBtn.addEventListener('click', () => {
                         createNotification('VM0b0t', `You requested to take control of ${getSelectedVM()}.`);
-                    });
-                }
-                if (keyboardBtn) {
-                    keyboardBtn.addEventListener('click', () => {
-                        createNotification('VM0b0t', `Keyboard session requested for ${getSelectedVM()}.`);
                     });
                 }
                 if (voteResetBtn) {
@@ -9470,23 +9462,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         mo.observe(document.body, { childList: true, subtree: true });
 
-        // Software keyboard helper: when focusing inputs on small viewport, ensure they are visible and scroll into view
-        function ensureInputVisibility(input) {
-            try {
-                // On focus, scroll the closest scrollable container so input is visible
-                const scrollable = input.closest('.app-view') || document.querySelector('.main-content') || document.body;
-                setTimeout(() => {
-                    input.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 250);
-            } catch (e) { /* ignore */ }
-        }
 
-        document.addEventListener('focusin', (e) => {
-            const t = e.target;
-            if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) {
-                ensureInputVisibility(t);
-            }
-        });
 
         // expose simple API for programmatic control/debug
         window._touchGestures = {
