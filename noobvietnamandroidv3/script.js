@@ -190,6 +190,72 @@ document.addEventListener('DOMContentLoaded', () => {
     const statusBar = document.querySelector('.status-bar');
     const navBar = document.querySelector('.nav-bar');
 
+    // Device mode: Phone vs Computer (persisted)
+    const deviceModeToggle = document.getElementById && document.getElementById('deviceModeToggle');
+    const COMPUTER_CLASS = 'computer-mode';
+    let deviceMode = localStorage.getItem('deviceMode') || 'phone'; // 'phone' or 'computer'
+
+    // Create a small computer caret indicator element for visual cue (shown in computer mode)
+    (function ensureComputerCaret() {
+        if (document.querySelector('.computer-caret')) return;
+        const caret = document.createElement('div');
+        caret.className = 'computer-caret';
+        caret.innerHTML = `<svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg"><path d="M2 0 L22 12 L13 14 L17 30 L7 16 L2 0 Z" fill="rgba(0,0,0,0.85)" /></svg>`;
+        document.querySelector('.screen').appendChild(caret);
+    })();
+
+    function applyDeviceMode(mode) {
+        deviceMode = mode === 'computer' ? 'computer' : 'phone';
+        if (deviceMode === 'computer') {
+            document.documentElement.classList.add(COMPUTER_CLASS);
+            if (deviceModeToggle) {
+                deviceModeToggle.setAttribute('aria-pressed', 'true');
+                deviceModeToggle.textContent = '🖱️';
+            }
+        } else {
+            document.documentElement.classList.remove(COMPUTER_CLASS);
+            if (deviceModeToggle) {
+                deviceModeToggle.setAttribute('aria-pressed', 'false');
+                deviceModeToggle.textContent = '📱/🖱️';
+            }
+        }
+        localStorage.setItem('deviceMode', deviceMode);
+    }
+
+    // Initialize mode on load
+    applyDeviceMode(localStorage.getItem('deviceMode') || deviceMode);
+
+    // Toggle handler wiring
+    if (deviceModeToggle) {
+        deviceModeToggle.addEventListener('click', (e) => {
+            const next = deviceMode === 'computer' ? 'phone' : 'computer';
+            applyDeviceMode(next);
+            createNotification('Device Mode', `Switched to ${next === 'computer' ? 'Computer' : 'Phone'} mode`);
+        });
+    }
+
+    // If in computer mode, show a small caret that follows mouse for visual cue (only on pointer devices)
+    (function wireComputerCaret() {
+        const caret = document.querySelector('.computer-caret');
+        if (!caret) return;
+        document.addEventListener('mousemove', (e) => {
+            if (!document.documentElement.classList.contains(COMPUTER_CLASS)) {
+                caret.style.display = 'none';
+                return;
+            }
+            // show and position caret relative to screen element
+            const rect = document.querySelector('.screen').getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            caret.style.left = (x + rect.left) + 'px';
+            caret.style.top = (y + rect.top) + 'px';
+            caret.style.display = 'block';
+        });
+        document.addEventListener('mouseleave', () => {
+            if (caret) caret.style.display = 'none';
+        });
+    })();
+
     let appHistory = []; 
     let allAppsGridElement; 
     let flashlightOn = false; 
@@ -1696,11 +1762,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span class="setting-detail">View Project Online</span>
                         <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-start;">
                             <div style="display:flex;gap:8px;align-items:center;width:100%;flex-wrap:wrap;">
-                                <button id="openGuestSiteButton" style="padding:10px 14px;">Open guest82644.vercel.app</button>
-                                <button id="openProjectOnlineButton" style="padding:10px 14px;background:var(--outline-color);">Open Current Project</button>
+                                <button id="openGuestSiteButton" style="padding:8px 10px;font-size:1em;">Open guest82644.vercel.app</button>
+                                <button id="openProjectOnlineButton" style="padding:8px 10px;background:var(--outline-color);font-size:1em;">Open Current Project</button>
                                 <button id="settingsFixQSTilesSizeButton" style="padding:10px 14px;background:var(--outline-color);" title="Fix Quick Settings tile size from Settings">Fix QS Size</button>
-                                <button id="openCloudHawkSyncButton" style="padding:10px 14px;background:var(--primary-color);color:var(--on-primary-color);">Open Cloud Hawk Sync</button>
-                                <button id="openCloudHawkDriveButton" style="padding:10px 14px;background:var(--outline-color);">Open Cloud Hawk Drive</button>
+                                <button id="openCloudHawkSyncButton" style="padding:8px 10px;background:var(--primary-color);color:var(--on-primary-color);">Open Cloud Hawk Sync</button>
+                                <button id="openCloudHawkDriveButton" style="padding:8px 10px;background:var(--outline-color);">Open Cloud Hawk Drive</button>
                             </div>
                             <div id="guestOnlineStatus" style="font-size:0.9em;color:color-mix(in srgb,var(--on-surface-color),transparent 40%);">Open the guest site or try to view this project online (uses websim.getCurrentProject if available).</div>
                         </div>
@@ -6780,6 +6846,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const appIconsToCreate = []; 
 
+    // Mark certain apps as moved (adds a "movedTo" hint shown as a badge on their icons)
+    (function markMovedApps() {
+        const movedMap = {
+            cloudHawkSyncApp: 'Cloud Hawk → Sync',
+            cloudHawkDriveApp: 'Cloud Hawk → Drive',
+            windowsApp: 'Windows → Emulator',
+            cloudHawkSyncApp: 'Cloud Hawk → Sync',
+            cloudHawkDriveApp: 'Cloud Hawk → Drive'
+        };
+        apps.forEach(a => {
+            if (movedMap[a.id]) {
+                a.moved = true;
+                a.movedTo = movedMap[a.id];
+            }
+        });
+    })();
+
     // Add Multiplayer Minesweeper app (shared "global" board using WebsimSocket room.roomState)
     apps.push({
         id: 'minesweeperApp',
@@ -7191,12 +7274,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const appIconDiv = document.createElement('div');
         appIconDiv.className = 'app-icon';
         appIconDiv.dataset.app = app.id;
+
+        // Build icon inner with optional moved badge
+        const movedBadgeHTML = app.moved ? `<div class="moved-badge" title="${(app.movedTo || 'Moved')}">Moved</div>` : '';
         appIconDiv.innerHTML = `
             <div class="app-icon-inner" tabindex="0" role="button" aria-label="${app.name}">
                 <img src="${app.icon}" alt="${app.name} Icon">
+                ${movedBadgeHTML}
             </div>
             <span>${app.name}</span>
         `;
+        // If moved, add a data attribute for further styling/interaction
+        if (app.moved) appIconDiv.setAttribute('data-moved', app.movedTo || 'moved');
+
         appIconsToCreate.push(appIconDiv);
     });
 
