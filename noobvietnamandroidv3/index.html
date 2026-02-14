@@ -201,15 +201,21 @@
                     <span class="icon cellular">📶</span>
                     <span class="icon">🔋</span>
                 </div>
+
+
             </div>
             <!-- KDE Mobile Notification GUI -->
             <div id="notificationShade" class="notification-shade">
                 <div class="shade-header">
                     <h3>Notifications</h3>
-                    <button id="clearAllNotifications">Clear All</button>
-                    <button id="openQuickSettingsFromShade">Quick settings</button>
-                    <button id="fixQSTilesSizeButton" title="Fix quick settings tile size">Fix size</button>
-                    <button id="closeNotificationShade">Close</button>
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <button id="clearAllNotifications">Clear All</button>
+                        <button id="openQuickSettingsFromShade">Quick settings</button>
+                        <button id="fixQSTilesSizeButton" title="Fix quick settings tile size">Fix size</button>
+                        <!-- Moved device mode toggle into Notifications header for quicker access -->
+                        <button id="deviceModeToggle" title="Toggle Phone / Computer mode" aria-pressed="false">📱/🖱️</button>
+                        <button id="closeNotificationShade">Close</button>
+                    </div>
                 </div>
                 <div class="notification-list">
                     <!-- Notifications will be dynamically added here -->
