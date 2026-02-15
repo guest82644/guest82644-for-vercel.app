@@ -5794,7 +5794,7 @@ document.addEventListener('DOMContentLoaded', () => {
     apps.push({
         id: 'nvidiaControlPanelApp',
         name: 'NVIDIA Control Panel',
-        icon: '/nvidiahd.png',
+        icon: 'nvidiahd.png',
         header: 'NVIDIA Control Panel — Game Ready Driver 472.12 · GRID P4-2Q',
         contentHTML: `
             <div style="max-width:920px;margin:0 auto;display:flex;flex-direction:column;gap:12px;">
