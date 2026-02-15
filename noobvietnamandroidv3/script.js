@@ -1847,7 +1847,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             <p style="margin: 0;">Android: 17</p>
                             <p style="margin: 0;">Model: CPH1989</p>
                             <p style="margin: 0;">CPU: Intel Potato</p>
-                            <p style="margin: 0;">GPU: Intel Graphics Fire GPU</p>
+                            <p style="margin: 0;">GPU1: Intel Graphics Fire GPU</p>
+                            <p style="margin: 0;">GPU2: Nvidia Grid P4-2Q 2GB VRAM</p>
                             <p style="margin: 0;">RAM: 4GB / 12GB</p>
                             <p style="margin: 0;">Storage: 2TB</p>
                             <p style="margin: 0;">Kernel version: Linux 6.12.41+deb13-amd64 debian 13</p>
@@ -5789,6 +5790,424 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     /* --- Insert Magisk app (Magisk Home / Superroot / Modules / Logs) --- */
+    // Add NVIDIA Control Panel app (UI simulated)
+    apps.push({
+        id: 'nvidiaControlPanelApp',
+        name: 'NVIDIA Control Panel',
+        icon: '/nvidiahd.png',
+        header: 'NVIDIA Control Panel — Game Ready Driver 472.12 · GRID P4-2Q',
+        contentHTML: `
+            <div style="max-width:920px;margin:0 auto;display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;gap:12px;align-items:center;justify-content:space-between;">
+                    <div>
+                        <strong>System Information</strong>
+                        <div style="font-size:0.95em;color:color-mix(in srgb,var(--on-surface-color),transparent 40%);">Driver Version: 472.12 · GPU: GRID P4-2Q · Home: NVIDIA Control Panel</div>
+                    </div>
+                    <div style="display:flex;gap:8px;">
+                        <button id="nvcFileBtn">File</button>
+                        <button id="nvcEditBtn">Edit</button>
+                        <button id="nvcMobileBtn">Mobile</button>
+                        <button id="nvcHelpBtn">Help</button>
+                    </div>
+                </div>
+
+                <div style="display:flex;gap:12px;">
+                    <div style="flex:1;background:var(--surface-color);padding:12px;border-radius:12px;">
+                        <h4>Select a Task</h4>
+                        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;">
+                            <li><button class="nvc-task" data-task="adjustPreview">3D Settings - Adjust image settings with preview</button></li>
+                            <li><button class="nvc-task" data-task="manage3d">Manage 3D settings</button></li>
+                            <li><button class="nvc-task" data-task="displayRes">Display - Change Resolution</button></li>
+                            <li><button class="nvc-task" data-task="multiDisplays">Set Up Multiple Displays</button></li>
+                            <li><button class="nvc-task" data-task="license">Licensing - Manage License</button></li>
+                            <li><button class="nvc-task" data-task="videoColor">Video - Adjust color settings</button></li>
+                        </ul>
+                    </div>
+
+                    <div style="flex:1;background:var(--surface-color);padding:12px;border-radius:12px;">
+                        <div id="nvcPanelContent">
+                            <h4>Welcome</h4>
+                            <p>Select a task from the left to view settings and controls.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `,
+        init: (appElement) => {
+            const panel = appElement.querySelector('#nvcPanelContent');
+
+            function showAdjustPreview() {
+                panel.innerHTML = `
+                    <h4>Adjust image settings with preview</h4>
+                    <div style="display:flex;gap:12px;align-items:center;">
+                        <div style="flex:1;">
+                            <p>This page allows you to preview changes you make to the image and rendering settings. These will be your default settings for hardware-accelerated 3D applications using Direct3D or OpenGL.</p>
+                            <div style="display:flex;gap:8px;margin-top:8px;">
+                                <button id="nvcRestoreDefaults">Restore Defaults</button>
+                                <button id="nvcPausePreview">Pause</button>
+                            </div>
+                        </div>
+                        <div style="width:220px;padding:8px;background:rgba(0,0,0,0.04);border-radius:8px;">
+                            <div style="font-weight:700;margin-bottom:6px;">Performance vs Quality</div>
+                            <div style="display:flex;flex-direction:column;gap:6px;">
+                                <label>Performance <input type="range" id="nvcPerfQuality" min="0" max="100" value="50"></label>
+                                <div style="display:flex;justify-content:space-between;font-size:0.9em;">
+                                    <span>Performance</span><span>Quality</span>
+                                </div>
+                                <div style="margin-top:8px;font-size:0.88em;color:color-mix(in srgb,var(--on-surface-color),transparent 40%);">
+                                    Moving towards Performance increases frame rate; Quality improves smoothness of curved lines.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                const restoreBtn = panel.querySelector('#nvcRestoreDefaults');
+                const pauseBtn = panel.querySelector('#nvcPausePreview');
+                const slider = panel.querySelector('#nvcPerfQuality');
+                if (restoreBtn) restoreBtn.addEventListener('click', () => {
+                    slider.value = 50;
+                    createNotification('NVIDIA', 'Settings restored to defaults.');
+                });
+                if (pauseBtn) pauseBtn.addEventListener('click', () => {
+                    createNotification('NVIDIA', 'Preview paused.');
+                });
+                if (slider) {
+                    slider.addEventListener('input', () => {
+                        const v = slider.value;
+                        createNotification('NVIDIA', `Preference set towards ${v < 50 ? 'Performance' : 'Quality'} (${v}).`);
+                    });
+                }
+            }
+
+            function showManage3D() {
+                panel.innerHTML = `
+                    <h4>Manage 3D settings</h4>
+                    <p>You can change global 3D settings and create overrides for specific programs.</p>
+                    <div style="display:flex;gap:8px;margin-top:8px;">
+                        <button id="nvcGlobalRestore">Restore Defaults</button>
+                        <button id="nvcAddProgram">Add Program</button>
+                    </div>
+                    <div style="margin-top:12px;">
+                        <strong>Global Presets:</strong>
+                        <div style="display:flex;gap:8px;margin-top:6px;">
+                            <button class="nvc-preset" data-preset="base">Base profile</button>
+                            <button class="nvc-preset" data-preset="perf">Performance</button>
+                            <button class="nvc-preset" data-preset="quality">Quality</button>
+                        </div>
+                    </div>
+                `;
+                const restore = panel.querySelector('#nvcGlobalRestore');
+                const addProg = panel.querySelector('#nvcAddProgram');
+                if (restore) restore.addEventListener('click', () => createNotification('NVIDIA', 'Global 3D settings restored.'));
+                if (addProg) addProg.addEventListener('click', () => createNotification('NVIDIA', 'Open program selection (simulated).'));
+                panel.querySelectorAll('.nvc-preset').forEach(b => b.addEventListener('click', () => createNotification('NVIDIA', `Applied preset: ${b.dataset.preset}`)));
+            }
+
+            function showDisplayResolution() {
+                panel.innerHTML = `
+                    <h4>Change Resolution</h4>
+                    <div>
+                        <p>Select the display and resolution to apply:</p>
+                        <div style="display:flex;flex-direction:column;gap:8px;max-width:420px;">
+                            <label>Display:
+                                <select id="nvcDisplaySelect"><option>GRID P4-2Q</option><option>NVIDIA VGX</option></select>
+                            </label>
+                            <label>Connector: <select id="nvcConnector"><option>DVI - PC display</option></select></label>
+                            <label>Resolution:
+                                <select id="nvcResolution">
+                                    <option>710 x 720</option>
+                                    <option>720 x 576</option>
+                                    <option>720 x 480</option>
+                                </select>
+                            </label>
+                            <label>Refresh rate:
+                                <select id="nvcRefresh"><option>60Hz</option></select>
+                            </label>
+                            <div style="display:flex;gap:8px;">
+                                <button id="nvcApplyRes">Apply</button>
+                                <button id="nvcCustomise">Customize...</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                const applyBtn = panel.querySelector('#nvcApplyRes');
+                const customBtn = panel.querySelector('#nvcCustomise');
+                if (applyBtn) applyBtn.addEventListener('click', () => createNotification('NVIDIA', 'Resolution applied.'));
+                if (customBtn) customBtn.addEventListener('click', () => createNotification('NVIDIA', 'Open customize dialog (simulated).'));
+            }
+
+            function showLicense() {
+                panel.innerHTML = `
+                    <h4>Manage License</h4>
+                    <p>Your system is licensed for NVIDIA RTX Virtual Workstation, expiring at 2026-5-16 13:55:14 GMT.</p>
+                    <div style="display:flex;flex-direction:column;gap:8px;max-width:420px;">
+                        <label>Primary Server Address: <input value="guest82644.vercel.app" readonly style="width:100%;"></label>
+                        <label>Port Number: <input value="443" readonly></label>
+                        <button id="nvcRefreshLicense">Refresh</button>
+                    </div>
+                `;
+                const refresh = panel.querySelector('#nvcRefreshLicense');
+                if (refresh) refresh.addEventListener('click', () => createNotification('NVIDIA', 'License refreshed (simulated).'));
+            }
+
+            function showVideoColor() {
+                panel.innerHTML = `
+                    <h4>Adjust video color settings</h4>
+                    <p>Adjust color settings while playing a video for best results.</p>
+                    <div style="display:flex;gap:12px;">
+                        <div style="flex:1;">
+                            <label>Brightness: <input type="range" id="nvcVideoBrightness" min="0" max="100" value="50"></label>
+                            <label>Contrast: <input type="range" id="nvcVideoContrast" min="0" max="100" value="50"></label>
+                            <label>Hue: <input type="range" id="nvcVideoHue" min="-50" max="50" value="0"></label>
+                            <label>Saturation: <input type="range" id="nvcVideoSat" min="0" max="100" value="50"></label>
+                        </div>
+                        <div style="width:220px;background:rgba(0,0,0,0.04);padding:8px;border-radius:8px;">
+                            <strong>Gamma</strong>
+                            <label>Red <input type="range" id="nvcGammaR" min="0" max="100" value="50"></label>
+                            <label>Green <input type="range" id="nvcGammaG" min="0" max="100" value="50"></label>
+                            <label>Blue <input type="range" id="nvcGammaB" min="0" max="100" value="50"></label>
+                        </div>
+                    </div>
+                    <div style="margin-top:8px;"><button id="nvcVideoRestore">Restore Defaults</button></div>
+                `;
+                panel.querySelectorAll('input[type="range"]').forEach(r => r.addEventListener('input', () => {
+                    createNotification('NVIDIA', 'Video setting adjusted (preview).');
+                }));
+                const restore = panel.querySelector('#nvcVideoRestore');
+                if (restore) restore.addEventListener('click', () => createNotification('NVIDIA', 'Video settings restored.'));
+            }
+
+            // wire left-side task buttons
+            appElement.querySelectorAll('.nvc-task').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const t = btn.dataset.task;
+                    if (t === 'adjustPreview') showAdjustPreview();
+                    else if (t === 'manage3d') showManage3D();
+                    else if (t === 'displayRes') showDisplayResolution();
+                    else if (t === 'multiDisplays') {
+                        // Simulated "Set Up Multiple Displays" UI
+                        panel.innerHTML = `
+                            <h4>Set Up Multiple Displays</h4>
+                            <p>Select the displays you want to use and drag the icons to match your physical configuration.</p>
+                            <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;">
+                                <div id="nvc-display-palette" style="flex:1;min-width:260px;background:rgba(0,0,0,0.03);padding:12px;border-radius:10px;">
+                                    <strong style="display:block;margin-bottom:8px;">Available Displays</strong>
+                                    <div id="nvc-display-list" style="display:flex;flex-direction:column;gap:8px;"></div>
+                                    <div style="margin-top:12px;display:flex;gap:8px;">
+                                        <button id="nvcDetectBtn" style="flex:1;padding:8px;border-radius:8px;border:none;background:var(--primary-color);color:var(--on-primary-color);">Detect Displays</button>
+                                        <button id="nvcAddCustomBtn" style="flex:1;padding:8px;border-radius:8px;border:none;background:var(--outline-color);">My display is not shown...</button>
+                                    </div>
+                                </div>
+                                <div id="nvc-display-canvas-wrap" style="flex:2;min-width:320px;background:rgba(255,255,255,0.02);padding:12px;border-radius:10px;">
+                                    <strong style="display:block;margin-bottom:8px;">Arrange Displays</strong>
+                                    <div id="nvc-display-canvas" style="position:relative;height:360px;border-radius:8px;background:linear-gradient(180deg,rgba(0,0,0,0.02),transparent);border:1px solid rgba(0,0,0,0.04);overflow:hidden;">
+                                        <!-- Draggable display icons will be created here -->
+                                    </div>
+                                    <div style="margin-top:10px;font-size:0.95em;color:color-mix(in srgb,var(--on-surface-color),transparent 40%);">
+                                        Drag the display tiles to match how your monitors are physically arranged, then click Apply.
+                                    </div>
+                                    <div style="display:flex;gap:8px;margin-top:12px;">
+                                        <button id="nvcApplyDisplays" style="flex:1;padding:10px;border-radius:8px;border:none;background:var(--primary-color);color:var(--on-primary-color);">Apply</button>
+                                        <button id="nvcResetDisplays" style="flex:1;padding:10px;border-radius:8px;border:none;background:var(--outline-color);">Reset</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top:12px;">
+                                <strong>Description:</strong>
+                                <p id="nvcMultiDesc" style="color:var(--on-surface-color);">NVIDIA nView technology allows you to specify how you would like to use multiple displays. 1. Select the displays you want to use. 2. Drag the icons to match your display configuration.</p>
+                            </div>
+                        `;
+
+                        // Populate available displays (simulated)
+                        const displays = [
+                            { id: 'disp-grid', name: 'GRID P4-2Q', width: 1920, height: 1080 },
+                            { id: 'disp-vgx', name: 'NVIDIA VGX', width: 1280, height: 1024 }
+                        ];
+                        const listEl = panel.querySelector('#nvc-display-list');
+                        const canvas = panel.querySelector('#nvc-display-canvas');
+
+                        function createListItem(d) {
+                            const row = document.createElement('div');
+                            row.style.display = 'flex';
+                            row.style.justifyContent = 'space-between';
+                            row.style.alignItems = 'center';
+                            row.style.padding = '8px';
+                            row.style.borderRadius = '8px';
+                            row.style.background = 'transparent';
+                            row.innerHTML = `<div style="font-weight:700;">${d.name}</div><label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" class="nvc-display-checkbox" data-id="${d.id}" checked> Use</label>`;
+                            return row;
+                        }
+
+                        function createDraggableTile(d, left = 20, top = 20) {
+                            const tile = document.createElement('div');
+                            tile.className = 'nvc-display-tile';
+                            tile.dataset.id = d.id;
+                            tile.style.position = 'absolute';
+                            tile.style.left = left + 'px';
+                            tile.style.top = top + 'px';
+                            tile.style.width = Math.max(100, Math.min(320, Math.round(d.width / 6))) + 'px';
+                            tile.style.height = Math.max(60, Math.min(200, Math.round(d.height / 8))) + 'px';
+                            tile.style.borderRadius = '8px';
+                            tile.style.background = 'linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04))';
+                            tile.style.border = '1px solid rgba(0,0,0,0.06)';
+                            tile.style.display = 'flex';
+                            tile.style.flexDirection = 'column';
+                            tile.style.alignItems = 'center';
+                            tile.style.justifyContent = 'center';
+                            tile.style.cursor = 'grab';
+                            tile.style.boxShadow = '0 6px 18px rgba(0,0,0,0.12)';
+                            tile.innerHTML = `<div style="font-weight:700;">${d.name}</div><div style="font-size:0.85em;color:color-mix(in srgb,var(--on-surface-color),transparent 40%);">${d.width}×${d.height}</div>`;
+                            makeTileDraggable(tile);
+                            return tile;
+                        }
+
+                        // render list and canvas tiles
+                        listEl.innerHTML = '';
+                        canvas.innerHTML = '';
+                        displays.forEach((d, idx) => {
+                            listEl.appendChild(createListItem(d));
+                            const tile = createDraggableTile(d, 24 + idx * 140, 24 + idx * 80);
+                            canvas.appendChild(tile);
+                        });
+
+                        // handle checkbox toggles to show/hide tiles
+                        listEl.querySelectorAll('.nvc-display-checkbox').forEach(cb => {
+                            cb.addEventListener('change', (e) => {
+                                const id = cb.dataset.id;
+                                const tile = canvas.querySelector(`.nvc-display-tile[data-id="${id}"]`);
+                                if (!tile) return;
+                                tile.style.display = cb.checked ? 'flex' : 'none';
+                            });
+                        });
+
+                        // Detect displays (simulate)
+                        const detectBtn = panel.querySelector('#nvcDetectBtn');
+                        detectBtn.addEventListener('click', () => {
+                            createNotification('NVIDIA', 'Detecting displays (simulated)...');
+                            // brief animated highlight on canvas tiles
+                            canvas.querySelectorAll('.nvc-display-tile').forEach((t, i) => {
+                                t.style.transition = 'transform 220ms';
+                                t.style.transform = 'translateY(-6px)';
+                                setTimeout(()=> t.style.transform = '', 260 + i*80);
+                            });
+                        });
+
+                        // Add "My display is not shown..." handling to show info dialog guidance
+                        const addCustomBtn = panel.querySelector('#nvcAddCustomBtn');
+                        addCustomBtn.addEventListener('click', () => {
+                            alert('If your display is not shown: verify cables, power, and driver support. For virtual adapters (VMs) ensure passthrough is enabled (simulation).');
+                        });
+
+                        // Apply / Reset actions
+                        panel.querySelector('#nvcApplyDisplays').addEventListener('click', () => {
+                            // read tile positions and used state
+                            const selected = [];
+                            canvas.querySelectorAll('.nvc-display-tile').forEach(t => {
+                                const id = t.dataset.id;
+                                const checkbox = listEl.querySelector(`.nvc-display-checkbox[data-id="${id}"]`);
+                                if (checkbox && checkbox.checked) {
+                                    selected.push({
+                                        id,
+                                        left: parseInt(t.style.left || '0',10),
+                                        top: parseInt(t.style.top || '0',10),
+                                        width: t.offsetWidth,
+                                        height: t.offsetHeight
+                                    });
+                                }
+                            });
+                            // persist to localStorage (simulated) and notify
+                            localStorage.setItem('nvc_display_config', JSON.stringify(selected));
+                            createNotification('NVIDIA', `Display configuration applied (${selected.length} displays).`);
+                        });
+
+                        panel.querySelector('#nvcResetDisplays').addEventListener('click', () => {
+                            // reset positions to defaults
+                            canvas.querySelectorAll('.nvc-display-tile').forEach((t, i) => {
+                                t.style.left = (24 + i*140) + 'px';
+                                t.style.top = (24 + i*80) + 'px';
+                            });
+                            // ensure checkboxes are checked
+                            listEl.querySelectorAll('.nvc-display-checkbox').forEach(cb => cb.checked = true);
+                            createNotification('NVIDIA', 'Display positions reset (simulated).');
+                        });
+
+                        // helper: make tile draggable within canvas bounds
+                        function makeTileDraggable(tile) {
+                            let dragging = false;
+                            let startX=0, startY=0, startLeft=0, startTop=0;
+                            const rect = canvas.getBoundingClientRect();
+
+                            function onDown(e) {
+                                e.preventDefault();
+                                dragging = true;
+                                tile.style.cursor = 'grabbing';
+                                startX = (e.touches ? e.touches[0].clientX : e.clientX);
+                                startY = (e.touches ? e.touches[0].clientY : e.clientY);
+                                startLeft = parseInt(tile.style.left || '0',10);
+                                startTop = parseInt(tile.style.top || '0',10);
+                                window.addEventListener(e.touches ? 'touchmove' : 'mousemove', onMove, { passive:false });
+                                window.addEventListener(e.touches ? 'touchend' : 'mouseup', onUp);
+                            }
+                            function onMove(ev) {
+                                if (!dragging) return;
+                                const clientX = (ev.touches ? ev.touches[0].clientX : ev.clientX);
+                                const clientY = (ev.touches ? ev.touches[0].clientY : ev.clientY);
+                                const dx = clientX - startX;
+                                const dy = clientY - startY;
+                                let newLeft = startLeft + dx;
+                                let newTop = startTop + dy;
+                                // constrain to canvas
+                                const canvasRect = canvas.getBoundingClientRect();
+                                const maxLeft = canvasRect.width - tile.offsetWidth - 8;
+                                const maxTop = canvasRect.height - tile.offsetHeight - 8;
+                                newLeft = Math.max(8, Math.min(maxLeft, newLeft));
+                                newTop = Math.max(8, Math.min(maxTop, newTop));
+                                tile.style.left = newLeft + 'px';
+                                tile.style.top = newTop + 'px';
+                            }
+                            function onUp(ev) {
+                                dragging = false;
+                                tile.style.cursor = 'grab';
+                                window.removeEventListener('mousemove', onMove);
+                                window.removeEventListener('mouseup', onUp);
+                                window.removeEventListener('touchmove', onMove);
+                                window.removeEventListener('touchend', onUp);
+                            }
+                            tile.addEventListener('mousedown', onDown);
+                            tile.addEventListener('touchstart', onDown, { passive:false });
+                        }
+
+                        // If there is a saved config, restore positions
+                        try {
+                            const saved = JSON.parse(localStorage.getItem('nvc_display_config') || 'null');
+                            if (saved && Array.isArray(saved)) {
+                                saved.forEach(s => {
+                                    const t = canvas.querySelector(`.nvc-display-tile[data-id="${s.id}"]`);
+                                    if (t) {
+                                        t.style.left = (s.left || 24) + 'px';
+                                        t.style.top = (s.top || 24) + 'px';
+                                    }
+                                });
+                            }
+                        } catch (e) { /* ignore */ }
+                    }
+                    else if (t === 'license') showLicense();
+                    else if (t === 'videoColor') showVideoColor();
+                });
+            });
+
+            // menu buttons (File/Edit/Mobile/Help) simple handlers
+            const fileBtn = appElement.querySelector('#nvcFileBtn');
+            const editBtn = appElement.querySelector('#nvcEditBtn');
+            const mobileBtn = appElement.querySelector('#nvcMobileBtn');
+            const helpBtn = appElement.querySelector('#nvcHelpBtn');
+            if (fileBtn) fileBtn.addEventListener('click', () => createNotification('NVIDIA', 'File menu opened (simulated).'));
+            if (editBtn) editBtn.addEventListener('click', () => createNotification('NVIDIA', 'Edit menu opened (simulated).'));
+            if (mobileBtn) mobileBtn.addEventListener('click', () => createNotification('NVIDIA', 'Mobile menu opened (simulated).'));
+            if (helpBtn) helpBtn.addEventListener('click', () => createNotification('NVIDIA', 'Help opened (simulated).'));
+        }
+    });
+
     apps.push({
         id: 'magiskApp',
         name: 'Magisk Manager',
@@ -5887,7 +6306,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             function renderStatus() {
                 statusEl.textContent = rooted ? 'Status: Rooted (Magisk present)' : 'Status: Not rooted';
-                toggleRootBtn.textContent = rooted ? 'Unroot (simulate)' : 'Root (simulate)';
+                toggleRootBtn.textContent = rooted ? 'Unroot (simulated)' : 'Root (simulated)';
             }
 
             function showView(view) {
@@ -5950,7 +6369,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     logsArea.textContent = 'No logs yet.';
                     return;
                 }
-                logsArea.textContent = logs.map(l => `[${new Date(l.t).toLocaleString()}] ${l.text}`).join('\n\n');
+                logsArea.textContent = logs.map(l => `[${new Date(l.t).toLocaleString()}] ${l.text}`).join('\\n\\n');
             }
 
             // Handlers
